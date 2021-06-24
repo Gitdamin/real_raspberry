@@ -34,8 +34,8 @@ while True:
     
     if (detectednum >= 10) :
     
-        id = 'songsoo0037@naver.com' #카카오톡 아이디
-        pw = 'kakaoss00.' #카카오톡 비밀번호
+        id = '~' #카카오톡 아이디
+        pw = '~' #카카오톡 비밀번호
 
         KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
         ChatRoom = 'https://center-pf.kakao.com/_dLeCs/chats/4812080438129747' #카카오톡챗봇 주소
