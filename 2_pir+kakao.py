@@ -71,7 +71,13 @@ while True:
         driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.')  #메시지 작성
         time.sleep(3)
         driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click()
-        time.sleep(3)
+        
+        time.sleep(5)
+     
+        driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/button').click()
+        driver.find_element_by_css_selector('#kakaoWrap > div.chat_popup > div.popup_body > div > div.write_chat2 > div.write_menu > div:nth-child(1) > div.upload_btn > input').send_keys('파일경로')
+        time.sleep(20) #짧은 영상 파일 전송 
+        
         driver.quit()
         
         time.sleep(60)
