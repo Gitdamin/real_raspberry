@@ -13,17 +13,20 @@ GPIO.setup(pirPin, GPIO.IN, GPIO.PUD_UP)
 detectednum = 0
 
 while True:
-
     if GPIO.input(pirPin) == GPIO.LOW:
-
-        print ("Motion detected!")
         detectednum += 1
+        print ("Motion detected! "+str(detectednum))
         if (detectednum >= 10) :
             break
 
     else:
+        detectednum = 0                             #연속해서 10번이상 감지되어야 조건실행 
+        print ("No motion! "+str(detectednum))
+        continue
+        
+      
+    time.sleep(0.2)
 
-        print ("No motion")
 
     time.sleep(0.2)
 
