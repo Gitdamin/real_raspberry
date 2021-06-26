@@ -1,10 +1,13 @@
 #초인종(스위치)을 누르면 LED ON, 얼굴, 눈 인식 시작
-#5장의 얼굴 캡쳐 & 저장 + 화면에 현재영상, 저장된 사진 띄우기
-#time out 기능 추가(10sec, 15sec) & auto end!
+#얼굴 인식 박스 표시 위에 'outsider detected' 출력
+#5장의 얼굴 캡쳐 & 저장 + 화면에 현재, 저장된 사진 띄우기
+#화면 사이즈 변경-전체 화면으로 띄우기
+#time out 기능 (10sec, 15sec) & auto end
 #카카오 챗봇 기능 추가 & 인터폰 기능 종료 후 카카오톡 접속 & '초인종 눌렀습니다' 출력
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
+import datetime
 
 #kakao_use
 from selenium import webdriver
@@ -14,9 +17,16 @@ import urllib
 
 GPIO.setmode(GPIO.BCM) # 핀을 GPIO 핀 번호 기준으로 설정
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
+GPIO.setup(17, GPIO.OUT) #  led
 
 import numpy as np #얼굴 인식 후 박스로 표시 
 import cv2
+
+font = cv2.FONT_ITALIC
+
+# 크기 변경 함수
+def set_size(img, scale):
+    return cv2.resize(img, dsize=(int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
 
 #kakao_setting
 id = ''
@@ -57,10 +67,13 @@ try: # 키보드 인터럽트 예외처리
                  eyes = eye_cascade.detectMultiScale(roi_gray)
                  for (ex, ey, ew, eh) in eyes:
                      cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
+                     cv2.putText(img, "Outsider detected", (x-5, y-5), font, 1, (0,255,0),2)  #얼굴찾았다는 메시지, green color
                  if count<6 :
                     cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_0" + str(count) + ".jpg", gray) 
                  
-             cv2.imshow('video',img) # video라는 이름으로 출력
+             #cv2.imshow('video',img) # video라는 이름으로 출력
+             big_size = set_size(img, 2.5)    #size bigger
+             cv2.imshow("big_size", big_size)     #size up 영상 출력
              if count>3 :
                  img2 = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)
                  cv2.imshow('Captured Image', img2)
