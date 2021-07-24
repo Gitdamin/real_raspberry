@@ -65,7 +65,7 @@ try: # 키보드 인터럽트 예외처리
              if now < time_2 :
                 cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  #초인종을 누른 직후 이미지 임의 캡쳐 및 저장
                 
-             eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors=3, minSize=(10,10))
+             eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors=10, minSize=(15,15))
              if len(eyes) :  #사람의 눈 인식
                  for  x, y, w, h in eyes :
                      cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4)   #white mini box
@@ -75,14 +75,16 @@ try: # 키보드 인터럽트 예외처리
             
              big_size = set_size(img, 2.5)    
              cv2.imshow("big_size", big_size)   #size up 영상 출력
-            
-             if count < 3 :     #얼굴인식이 안되었을 경우, 초인종 누른 직후 임의 캡쳐한 이미지를 대신 송출
-                img3 = cv2.imread('/home/pi/Documents/face_detection/test_capture_who.jpg', 1) 
+             
+             if count < 3 :  #얼굴인식이 안되었을 때, 초인종 누른 직후 임의 저장된 이미지 대신 송출
+                img3 = cv2.imread('/home/pi/Documents/face_detection/test_capture_who.jpg', 1)
                 cv2.imshow('Captured Image', img3)
-                
-             else :     #얼굴인식 및 이미지 저장이 잘 되었을 경우
-                img2 = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)  
+             
+             if count > 3 :  #얼굴인식이 성공적으로 진행
+                cv2.destroyWindow("Captured Image")  #이전의 창 제거 후 정확한 사진 송출
+                img2 = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)
                 cv2.imshow('Recognized Image', img2)
+  
                 
              k = cv2.waitKey(30) & 0xff
              if k == 27: # press 'ESC' to quit # ESC를 누르면 종료
