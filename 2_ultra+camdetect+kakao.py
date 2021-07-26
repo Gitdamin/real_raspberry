@@ -11,9 +11,6 @@ ECHO = 24 # ECHO 핀을 BCM 24번에 연결
 GPIO.setup(TRIG, GPIO.OUT) # 핀 모드 설정
 GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
 
-PIR = 7  # PIR 핀을 BCM 7번에 연결
-GPIO.setup(PIR, GPIO.IN, GPIO.PUD_UP) # 핀 모드 설정
-
 def measure(): # 초음파 센서로 거리 측정하는 함수
     GPIO.output(TRIG, True)
     time.sleep(0.00001)
@@ -51,30 +48,13 @@ def measure_average(): # 10초동안 평균 거리 측정하는 함수
     time.sleep(1)
     distance10 = measure()
 
-    distance = ( distance1 + distance2 + distance3 + distance4 + distance5 + distance6 + distance7 + distance8 + distance9 + distance10 ) / 10
+    distance = (distance1 + distance2 + distance3 + distance4 + distance5 + distance6 + distance7 + distance8 + distance9 + distance10) / 10
     #정밀도를 높이기 위해 1초마다 거리를 측정하여 10초동안의 평균거리 계산
     
-    print(str(distance))
-    
+    print(str(distance))    
     return distance
 
-def pirmeasure(): # PIR 센서로 움직임 측정하는 함수
-    while True:
-        if GPIO.input(PIR) == GPIO.LOW:
-            detectednum += 1
-            print ("Motion detected! "+str(detectednum))
-            if (detectednum >= 10) : #연속해서 10번이상 감지되어야 조건실행 
-                break
-
-        else:
-            detectednum = 0             
-            print ("No motion!")
-            continue
-
-    return detectednum
-
-
-def record(): # 파이카메라로 영상 녹화하는 함수
+"""def record(): # 파이카메라로 영상 녹화하는 함수
   with picamera.PiCamera() as camera:
     camera.resolution = (640, 480)
     now = datetime.datetime.now()
@@ -82,7 +62,20 @@ def record(): # 파이카메라로 영상 녹화하는 함수
     camera.start_recording(output = filename + '.h264') #h.264 코덱
     camera.wait_recording(5)
     camera.stop_recording()
+    """
 
+def detect(img, cascade): # fullbdy 인식하는 함수
+    rects = fullbody_cascade.detectMultiScale(img, scaleFactor=1.3, minNeighbors=4, minSize=(30, 30))
+                                            #  flags=cv2.CASCADE_SCALE_IMAGE
+    if len(rects) == 0:
+        return []
+    rects[:,2:] += rects[:,:2]
+    return rects
+
+def draw_rects(img, rects, color): # 인식한 부분 사각형 표시하는 함수
+    for x1, y1, x2, y2 in rects:
+        cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
+        
 def login(): # 카카오톡 챗봇으로 로그인 하는 함수
     id = '~' # 카카오톡 아이디
     pw = '~' # 카카오톡 비밀번호
@@ -114,6 +107,15 @@ def login(): # 카카오톡 챗봇으로 로그인 하는 함수
 
 a = 0 # 일정 거리 이내에 사람이 감지된 횟수
 
+# 카메라 초기설정
+camera = PiCamera()
+camera.resolution = (640, 480)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(640, 480))
+fullbody_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+
+humanfound = 0 # 사람 감지 횟수 
+
 try:
     while True:
 
@@ -122,7 +124,7 @@ try:
         if (distance <= 30) :
             a = a+1 # 일정 거리 이내에 사람이 감지되면 횟수를 1씩 증가시킴
             if (a >= 10) : 
-                pirmeasure()
+
                 #record()
                 login()
                 driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') # 메세지 작성
