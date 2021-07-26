@@ -1,3 +1,4 @@
+#기능2
 import RPi.GPIO as GPIO 
 
 GPIO.setmode(GPIO.BCM) # 핀을 GPIO 핀 번호 기준으로 부름
