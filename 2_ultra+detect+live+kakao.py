@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오�
 import time # time 함수 사용을 위한 라이브러리 불러오기
 import picamera
 import datetime
+import app # 실시간 영상 스트리밍 관련 app.py 모듈 
 
 GPIO.setmode(GPIO.BCM) # 핀을 GPIO 핀 번호 기준으로 부름
 
@@ -126,6 +127,8 @@ try:
             if (a >= 10) : 
 
                 #record()
+                app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
+                
                 login()
                 driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') # 메세지 작성
                 time.sleep(3)
