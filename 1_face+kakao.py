@@ -10,12 +10,7 @@
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
 import datetime
-
-#소프트웨어 자동화
-#kakao_use
 from selenium import webdriver
-from PIL import Image
-import configparser
 import urllib
 
 #GPIO 핀 번호 setting
@@ -26,19 +21,50 @@ GPIO.setup(17, GPIO.OUT) #  led
 import numpy as np #얼굴 인식 후 박스로 표시 
 import cv2
 
-font = cv2.FONT_ITALIC
-
 # 크기 변경 함수
 def set_size(img, scale):
     return cv2.resize(img, dsize=(int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
 
-#kakao_setting_user_version
-id = ''  #개인 아이디
-pw = ''  #개인 비밀번호
+def kakao():
+    
+    #kakao setting
+    id = ''  #개인 아이디
+    pw = ''  #개인 비밀번호
 
-KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
-ChatRoom = 'https://center-pf.kakao.com/_xfxcRGs/chats/4814011526591515'
-options = webdriver.ChromeOptions()
+    KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
+    ChatRoom = 'https://center-pf.kakao.com/_xfxcRGs/chats/4814011526591515'
+    options = webdriver.ChromeOptions()
+
+    #크롬 드라이버 로드
+    driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', options=options)
+    driver.implicitly_wait(3)
+    
+    #user-agent 변경
+    options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.187")  
+          
+    driver.get(KaKaoURL)
+    sleep(1)
+          
+    driver.find_element_by_id('id_email_2').send_keys(id)  #아이디 작성
+    driver.find_element_by_id('id_password_3').send_keys(pw)  #비밀번호 작성
+    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()  #입력버튼 클릭
+    sleep(1)
+        
+    #채팅방 로드
+    driver.get(ChatRoom)
+    sleep(1)
+        
+    #글 작성
+    driver.find_element_by_id('chatWrite').send_keys('초인종을 눌렀습니다.')  #메시지 작성
+    if count > 3 :   #얼굴인식 및 이미지 저장이 잘 되었을 경우
+          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_03.jpg') 
+    else :    #얼굴인식이 안되었을 경우, 초인종 누른 직후 임의 캡쳐한 이미지를 대신 전달
+          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_who.jpg')
+          
+    driver.quit()
+    sleep(1)
+    exit()  #프로그램 종료
+   
 
 try: # 키보드 인터럽트 예외처리
     count = 0  #initialize
@@ -62,8 +88,8 @@ try: # 키보드 인터럽트 예외처리
              ret, img = cap.read() 
              gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
              now = datetime.datetime.now() 
-             if now < time_2 :
-                cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  #초인종을 누른 직후 이미지 임의 캡쳐 및 저장
+             if now < time_2 :  #초인종을 누른 직후 이미지 임의 캡쳐 및 저장
+                cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  
                 
              eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors=10, minSize=(15,15))
              if len(eyes) :  #사람의 눈 인식
@@ -72,26 +98,28 @@ try: # 키보드 인터럽트 예외처리
                      count += 1
                      if count<6 :  #5장의 이미지 캡쳐 및 저장
                          cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_0" + str(count) + ".jpg", gray) 
-            
+                        
+             #size up 영상 출력
              big_size = set_size(img, 2.5)    
-             cv2.imshow("big_size", big_size)   #size up 영상 출력
+             cv2.imshow("big_size", big_size)   
              
              if count < 3 :  #얼굴인식이 안되었을 때, 초인종 누른 직후 임의 저장된 이미지 대신 송출
-                img3 = cv2.imread('/home/pi/Documents/face_detection/test_capture_who.jpg', 1)
-                cv2.imshow('Captured Image', img3)
+                img_who = cv2.imread('/home/pi/Documents/face_detection/test_capture_who.jpg', 1)
+                cv2.imshow('Captured Image', img_who)
              
-             if count > 3 :  #얼굴인식이 성공적으로 진행
+             else :  #얼굴인식이 성공적으로 진행
                 cv2.destroyWindow("Captured Image")  #이전의 창 제거 후 정확한 사진 송출
-                img2 = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)
-                cv2.imshow('Recognized Image', img2)
+                img_cap = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)
+                cv2.imshow('Recognized Image', img_cap)
   
                 
              k = cv2.waitKey(30) & 0xff
              if k == 27: # press 'ESC' to quit # ESC를 누르면 종료
                 break
                 
+             #time out   
              now = datetime.datetime.now()          
-             if now >= time_10 :  #time out
+             if now >= time_10 :  
                 GPIO.output(17, GPIO.LOW) # 17번 핀을 LOW 상태로 설정합니다. LED가 꺼집니다.
                 if count < 3 :
                     print("no detected") 
@@ -99,40 +127,11 @@ try: # 키보드 인터럽트 예외처리
              
           cap.release()
           cv2.destroyAllWindows()
+          kakao()
             
-          #kakao
-          #크롬 드라이버 로드
-          driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', options=options)
-          driver.implicitly_wait(3)
-          #user-agent 변경
-          options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.187")  
-          
-          driver.get(KaKaoURL)
-          sleep(1)
-          
-          driver.find_element_by_id('id_email_2').send_keys(id)  #아이디 작성
-          driver.find_element_by_id('id_password_3').send_keys(pw)  #비밀번호 작성
-          driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()  #입력버튼 클릭
-          sleep(1)
-        
-          #채팅방 로드
-          driver.get(ChatRoom)
-          sleep(1)
-        
-          #글 작성
-          driver.find_element_by_id('chatWrite').send_keys('초인종을 눌렀습니다.')  #메시지 작성
-          if count > 3 : #얼굴인식 및 이미지 저장이 잘 되었을 경우
-             driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_03.jpg') 
-          else :  #얼굴인식이 안되었을 경우, 초인종 누른 직후 임의 캡쳐한 이미지를 대신 전달
-              driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_who.jpg')
-          
-          driver.quit()
-          sleep(1)
-          exit()  #프로그램 종료
-   
-
        else:
           print('NOT PUSH THE BUTTON')
+            
 except KeyboardInterrupt:
    pass
 
