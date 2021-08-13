@@ -65,7 +65,7 @@ def measure_average(): # 10초동안 평균 거리 측정하는 함수
     camera.stop_recording()
     """
 
-def detect(img, cascade): # fullbdy 인식하는 함수
+def detect(img, cascade): # fullbody 인식하는 함수
     rects = fullbody_cascade.detectMultiScale(img, scaleFactor=1.3, minNeighbors=4, minSize=(30, 30))
                                             #  flags=cv2.CASCADE_SCALE_IMAGE
     if len(rects) == 0:
@@ -122,7 +122,7 @@ try:
         time.sleep(1)
         if (distance <= 30) : # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 
             a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
-            if (a >= 10) : 
+            while (a > 10) : 
                 while (humanfound < 100): # 임의 숫자 / 사람 감지 횟수가 일정 횟수를 증가하면 다음 단계 진행 
                     # capture frames from the camera
                     for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
