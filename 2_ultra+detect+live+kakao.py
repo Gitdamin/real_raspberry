@@ -152,6 +152,16 @@ try:
 
 
 try:
+    # 카메라 초기설정
+    camera = PiCamera()
+    camera.resolution = (640, 480)
+    camera.framerate = 32
+    rawCapture = PiRGBArray(camera, size=(640, 480))
+    fullbody_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+    
+    humanfound = 0 # 사람 감지 횟수 
+    a = 0 # 일정 거리 이내에 사람이 감지된 횟수
+    
     while True:        
         distance = measure_average()
         time.sleep(1)
@@ -182,7 +192,7 @@ try:
                             break
                         print(str(humanfound))
 
-            #record()
+          # record()
             app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
 
             login()
