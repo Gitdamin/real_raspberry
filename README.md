@@ -40,6 +40,21 @@ ____________________
 * 영상자료를 스토킹이나 주거침입의 증거로 활용 가능
 __________
 ## :small_orange_diamond: 사용방법
-```
-  int a;
+1. https://github.com/opencv/opencv/tree/master/data/haarcascades
+에 접속하여 필요한 .xml 파일 다운
+2. main code가 있는 위치에 같이 저장
+3. https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
+에 접속하여 개인 카카오 채널 생성
+4. main code의 kakao()에서 개인 아이디, 비밀번호, 채팅방 주소 수정
+```python
+ def kakao():
+    
+    #kakao_setting
+    id = '~'  #개인 아이디
+    pw = '~'  #개인 비밀번호
+
+    KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
+    ChatRoom = '~'  #개인 채팅방 주소
+    options = webdriver.ChromeOptions()
+    
 ```
