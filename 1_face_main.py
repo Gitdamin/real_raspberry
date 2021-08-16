@@ -51,6 +51,32 @@ def kakao():
     driver.find_element_by_id('chatWrite').send_keys('초인종을 눌렀습니다.')  #메시지 작성
     if count > 3 :   #얼굴인식 및 이미지 저장이 잘 되었을 경우
           driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_03.jpg') 
+            
+          #학습시킨 이미지 불러오기 
+          recognizer = cv2.face.LBPHFaceRecognizer_create()
+          recognizer.read('/home/pi/Documents/face_detection/trainer/trainer.yml')
+        
+          frame = img_cap
+          #cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg')
+          gray_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
+          #값 받아오기 
+          id, confidence = recognizer.predict(gray_2)
+          print(id)
+        
+          #값 반대로 생각하기 
+          id = id-1
+          id = names[id]
+          if confidence > 20 :
+                id = "unknown"
+          
+          #confidence = "  {0}%".format(round(100 - confidence))
+            
+          #글 작성                 
+          driver.find_element_by_id('chatWrite').send_keys('외부인의 신원(id) = ' + str(id))  #메시지 작성
+          driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click()  #전송버튼
+        
+        
     else :    #얼굴인식이 안되었을 경우, 초인종 누른 직후 임의 캡쳐한 이미지를 대신 전달
           driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_who.jpg')
           
