@@ -1,4 +1,5 @@
 ## face recognization + capture 5 images + show together 
+## 학습된 이미지와 비교분석하여 외부인의 신원 및 정보를 전달
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
