@@ -1,11 +1,4 @@
-#초인종(스위치)을 누르면 LED ON, 사람의 눈 인식 시작
-#눈만 인식함으로써 마스크를 착용했을 때에도 인식
-#초인종 누른 직후 임의 저장된 이미지 + 현재 문 앞 상황 동시 송출
-#if 얼굴인식 성공, 5장의 얼굴 캡쳐 및 저장->이전 창 닫기 + 인식된 (정확한) 얼굴로 대신 송출
-#화면 사이즈 변경->전체 화면으로 띄우기
-#time out 기능 (10sec) & auto end
-#카카오 챗봇 기능 추가 & 인터폰 기능 종료 후 카카오톡 접속 & '초인종 눌렀습니다' 출력
-
+## face recognization + capture 5 images + show together 
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
@@ -15,7 +8,7 @@ import urllib
 
 #GPIO 핀 번호 setting
 GPIO.setmode(GPIO.BCM) # 핀을 GPIO 핀 번호 기준으로 설정
-GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
+GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
 GPIO.setup(17, GPIO.OUT) #  led
 
 import numpy as np #얼굴 인식 후 박스로 표시 
@@ -70,7 +63,7 @@ try: # 키보드 인터럽트 예외처리
     count = 0  #initialize
     while 1 :
        sleep(0.5)
-       if GPIO.input(18) is 0:
+       if GPIO.input(14) is 0:
           print('PUSH THE BUTTON')
         
           GPIO.output(17, GPIO.HIGH) # 17번 핀을 HIGH상태로 설정합니다. LED가 켜집니다.
