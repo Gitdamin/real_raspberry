@@ -36,5 +36,5 @@ faces,ids = getImagesAndLabels(path)
 recognizer.train(faces, np.array(ids))
 #다음의 위치에 저장 
 recognizer.save('/home/pi/Documents/face_detection/trainer/trainer.yml') 
-# Print the numer of faces trained and end program
+# Print the numer of faces trained
 print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids))))
