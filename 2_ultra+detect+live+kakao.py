@@ -1,9 +1,12 @@
 from selenium import webdriver
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 import time # time 함수 사용을 위한 라이브러리 불러오기
-import picamera
 import datetime
 import app # 실시간 영상 스트리밍 관련 app.py 모듈 
+
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import cv2
 
 GPIO.setmode(GPIO.BCM) # 핀을 GPIO 핀 번호 기준으로 부름
 
@@ -163,6 +166,8 @@ try:
         humanfound = 0 # 사람 감지 횟수 
         a = 0 # 일정 거리 이내에 사람이 감지된 횟수
         flag = 0
+        app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
+        time.sleep(1)
         
         distance = measure_average()
         time.sleep(1)
@@ -197,7 +202,7 @@ try:
                         break
 
                   # record()
-                    app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
+                    
 
                     login()
                     driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') # 메세지 작성
