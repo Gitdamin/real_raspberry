@@ -16,7 +16,6 @@ face_id = input('\n write your id and push the enter button => ')
 print("\n [INFO] Initializing face capture. Look the camera and wait ...")
 
 # Initialize
-#10의 배수로 
 count = 0
 while(True):
     ret, img = cam.read()
@@ -30,16 +29,10 @@ while(True):
         cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4) #white mini box
         count += 1
         # Save the captured image into the datasets folder
-        # 얼굴 일부 저장
-        #input('click the enter')
-        #now = datetime.datetime.now()  #time out
-        #a = input('press the enter')
-        #~1로 끝나도록 
-        if count < 11 :
+        if count < 10 :
            cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray)
         
-        # 얼굴 전체 저장 
-        #cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray)
+       
     cv2.imshow('image', img)
     
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
@@ -48,6 +41,7 @@ while(True):
     #elif count >= 30: # Take 30 face sample and stop video
          #break
 # Do a bit of cleanup
+
 print("\n [INFO] Exiting Program and cleanup stuff")
 cam.release()
 cv2.destroyAllWindows()
