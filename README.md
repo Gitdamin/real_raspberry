@@ -6,7 +6,7 @@ ___________
 * 수상한 외부인이 문 앞에서 주기적으로 서성이는 움직임을 포착하여 알림 및 영상 전송을 통해 1인 가구 대상 범죄 예방이 가능하다. 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/129689217-2c0fce42-f0e3-4d3f-896a-3b55a8089abf.jpg" width="600px" height="250px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/129713360-dbe360da-44ed-40d6-b7fb-a79cb70e0e7d.jpg" width="640px" height="180px" title="33" alt="33"></img><br/>
 _____________
 ## :small_orange_diamond: 배경
 * 일반적으로 초인종을 누른 외부인은 카메라 앞에서 가만히 대기하고 있지 않음
@@ -18,7 +18,7 @@ _____________
 ____________________
 ##  :small_orange_diamond: 기능 1 
 ### :small_blue_diamond: 외부인 인식 + 학습된 이미지와 비교 분석 + 결과 알림전송
-<img src="https://user-images.githubusercontent.com/86276347/129696940-8cb7bb53-4e5c-493e-a9c2-b6673673f73d.jpg" width="590px" height="260px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/129696940-8cb7bb53-4e5c-493e-a9c2-b6673673f73d.jpg" width="610px" height="260px" title="33" alt="33"></img><br/>
 >그림 1) 
 <br/>
 
@@ -41,8 +41,7 @@ ____________________
 7. 웹크롤링을 통해 라즈베리파이 자체에서 인터넷(크롬) 연결 + 카카오 채널 접속
 8. '초인종을 눌렀습니다' 및 저장된 사진 전송
 >만약 외부인의 눈이 인식되지 않아 5장의 이미지를 저장하지 못했다면 *1.* 의 이미지를 대신 전송 
-9. 만약 눈이 인식되었다면 해당 이미지를 통해 미리 학습된 이미지와 비교 분석하여 사용자에게 신원(id)에 관한 메시지 전달
->이미지 학습 및 분석에서 자세히 설명
+9. 만약 눈이 인식되었다면 해당 이미지를 통해 미리 학습된 이미지와 비교 분석하여 사용자에게 신원(id)에 관한 메시지 전달<br/>
 <br/>
 
 <img src="https://user-images.githubusercontent.com/86276347/129705728-45ff55df-a777-4cc8-8db5-faf86117c84a.JPG" width="250px" height="180px" title="33" alt="33"></img>
@@ -52,9 +51,12 @@ ____________________
 
 ####  :small_red_triangle_down: 이미지 학습 및 분석
 
+<img src="https://user-images.githubusercontent.com/86276347/129713368-254d8095-fcb6-4109-a908-b84d85abb86c.jpg" width="350px" height="270px" title="33" alt="33"></img><br/>
+
 * 이미 신원 및 정보를 파악하고 있는 외부인과 처음보는 외부인 간의 차별점을 두기 위해 얼굴 학습 및 분석 기능 추가
-* 좀 더 빠르게 외부인의 신원 판단 가능
-* 여러 개의 다양한 이미지를 학습시킬 수록 정확도가 올라감
+* 수상한 외부인 접근에 대해 더 빠르게 대처 가능
+* 사용자는 외부인의 신원을 빠르게 인지 가능
+* 다양한 환경에서 이미지를 학습시킬 수록 정확도가 올라감
 <br/>
 
 1. 사람의 눈을 ```Haar Cascade```방식으로 인식한 뒤 이미지 저장
