@@ -44,14 +44,14 @@ ____________________
 9. 만약 눈이 인식되었다면 해당 이미지를 통해 미리 학습된 이미지와 비교 분석하여 사용자에게 신원(id)에 관한 메시지 전달<br/>
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/129705728-45ff55df-a777-4cc8-8db5-faf86117c84a.JPG" width="250px" height="180px" title="33" alt="33"></img>
-<img src="https://user-images.githubusercontent.com/86276347/129705749-64015f00-6b56-42b8-9eee-dea485a10667.JPG" width="250px" height="180px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/129705728-45ff55df-a777-4cc8-8db5-faf86117c84a.JPG" width="280px" height="200px" title="33" alt="33"></img>
+<img src="https://user-images.githubusercontent.com/86276347/129705749-64015f00-6b56-42b8-9eee-dea485a10667.JPG" width="280px" height="200px" title="33" alt="33"></img><br/>
 >그림 2) <br/>
 <br/>
 
 ####  :small_red_triangle_down: 이미지 학습 및 분석
 
-<img src="https://user-images.githubusercontent.com/86276347/129713368-254d8095-fcb6-4109-a908-b84d85abb86c.jpg" width="350px" height="270px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/129713368-254d8095-fcb6-4109-a908-b84d85abb86c.jpg" width="320px" height="250px" title="33" alt="33"></img><br/>
 
 * 이미 신원 및 정보를 파악하고 있는 외부인과 처음보는 외부인 간의 차별점을 두기 위해 얼굴 학습 및 분석 기능 추가
 * 수상한 외부인 접근에 대해 더 빠르게 대처 가능
