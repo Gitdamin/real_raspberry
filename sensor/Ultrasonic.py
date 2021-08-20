@@ -1,5 +1,5 @@
-#초음파 센서를 사용해 거리 측정
-#10cm이하에 장애물이 있을 시 led on, print distance
+## detect distance using Ultrasonic sensor
+# LED on + print distance if there is an obstacle less than 10cm
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 import time # time 함수 사용을 위한 라이브러리 불러오기
