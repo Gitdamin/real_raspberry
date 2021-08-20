@@ -1,5 +1,6 @@
-#얼굴과 눈 인식하고 인식부분 박스로 표시
- 
+## detect face and eye
+# show retangular boxes on face 
+
 import cv2
 
 cap = cv2.VideoCapture(-1)
