@@ -1,5 +1,5 @@
-#스위치를 누르면 얼굴인식 시작 only face
-#얼굴인식 후 5장의 사진 캡쳐, 저장됨
+## start face recognition when push the button
+# save 5 images 
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
