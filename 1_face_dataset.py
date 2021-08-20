@@ -26,7 +26,7 @@ while(True):
     eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors= 10, minSize=(15,15))
     
     for  x, y, w, h in eyes :
-        # show white box in img
+        # show white box on img
         cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4) 
         count += 1
         # Save the captured image into the datasets folder
