@@ -1,4 +1,4 @@
-#움직이는 git 파일을 tkinter를 사용해서 풀 스크린으로 출력
+#움직이는 git 파일을 tkinter를 사용해서 full screen 출력
 
 import sys
 if sys.version_info[0] == 2:  # Just checking your Python version to import Tkinter properly.
