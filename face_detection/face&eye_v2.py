@@ -1,6 +1,6 @@
-#얼굴, 눈 인식 후 화면에 띄워짐
-#눈 인식은 i를 입력해야 실행된다. 
-#얼굴인식 후 'Eye Detention ON&OFF' 글자 띄우기
+## detect face and eye
+# start eye recognition after press i
+# show the rectangular boxes on face and text on monitor
 
 import cv2
 
@@ -32,7 +32,7 @@ def faceDetect():
 
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-        #카메라 영상 왼쪽위에 위에 셋팅된 info 의 내용 출력
+        # show the info using TEXT
         cv2.putText(frame, info, (5,15), font, 0.5, (255,0, 255),1)
 
         for(x,y, w,h) in faces:
@@ -48,7 +48,7 @@ def faceDetect():
         cv2.imshow("frame", frame)
         k=cv2.waitKey(30)
 
-        #실행 중 키보드 i 를 누르면 눈찾기를 on, off한다.
+        # eye recognition -> on, off
         if k == ord('i'):
             eye_detect = not eye_detect
         if k == 27:
