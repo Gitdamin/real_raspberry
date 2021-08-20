@@ -1,4 +1,4 @@
-#using motion sensor # but, not working..
+## detect motion
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 
