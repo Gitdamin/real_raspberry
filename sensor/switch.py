@@ -1,4 +1,4 @@
-#스위치 눌렀을 시, LOW 출력
+## print LOW when push the button
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
