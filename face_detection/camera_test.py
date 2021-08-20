@@ -1,4 +1,4 @@
-#파이 카메라를 사용해서 화면에 영상 띄우기
+## Camera test using pi-cam.
 
 import numpy as np
 import cv2
