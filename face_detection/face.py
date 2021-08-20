@@ -1,5 +1,5 @@
-#얼굴 인식 후 화면에 영상 띄우기
-# 인식부분 박스로 표시 
+## detect face
+# show rectangular box on face
 
 import numpy as np
 import cv2
