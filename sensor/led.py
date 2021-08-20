@@ -1,5 +1,5 @@
-#led가 5초 간격으로 켜졌다 꺼졌다 실행
-#5번 반복하고 자동종료
+# LED가 5초 간격으로 자동 ON, OFF 
+# 5번 반복 후 종료
 
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 from time import sleep # time 함수 사용을 위한 라이브러리 불러오기
