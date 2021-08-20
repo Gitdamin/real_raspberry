@@ -1,5 +1,5 @@
-##Data set code##
-#capture and save faces per id 
+## Data set code ##
+# capture and save faces per id 
 
 import cv2
 import os
@@ -10,7 +10,7 @@ cam = cv2.VideoCapture(-1)
 cam.set(3, 640) # set video width
 cam.set(4, 480) # set video height
 
-#haar_eye detect
+# using haar_eyedetect
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
 # For each person, enter one numeric face id
@@ -26,7 +26,7 @@ while(True):
     eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors= 10, minSize=(15,15))
     
     for  x, y, w, h in eyes :
-        #show white box in img
+        # show white box in img
         cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4) 
         count += 1
         # Save the captured image into the datasets folder
