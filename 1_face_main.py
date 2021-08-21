@@ -11,7 +11,16 @@ import urllib
 #GPIO pin num setting
 GPIO.setmode(GPIO.BCM) 
 GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
-GPIO.setup(17, GPIO.OUT) # led setup
+GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
+GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for white led  
+GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for red led  
+GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for red led
+
+hz = 75
+#hz = int(hz)
+red = GPIO.PWM(17, hz)    # create object red for PWM on port 17  
+green = GPIO.PWM(27, hz)      # create object green for PWM on port 27   
+blue = GPIO.PWM(22, hz)      # create object blue for PWM on port 22 
 
 import numpy as np 
 import cv2
@@ -98,8 +107,11 @@ try:
        sleep(0.5)
        if GPIO.input(14) is 0:
           print('PUSH THE BUTTON')
-        
-          GPIO.output(17, GPIO.HIGH) # 17 pin High -> LED on
+          # LED on
+          red.start(100)   #start red led
+          green.start(100) #start green led
+          blue.start(100)  #start blue led
+         
           now = datetime.datetime.now()  #time out 기능
           # N seconds after ringing the doorbell
           time_10 = now + datetime.timedelta(seconds =10) 
@@ -151,7 +163,12 @@ try:
              # time out   
              now = datetime.datetime.now()          
              if now >= time_10 :  
-                GPIO.output(17, GPIO.LOW) # 17 pin Low -> LED off
+                # LED off
+                red.stop()   #stop red led
+                green.stop() #stop green led
+                blue.stop()  #stop blue led
+                GPIO.cleanup()  # clean up GPIO
+                
                 if count < 3 :
                     print("no detected") 
                 break
