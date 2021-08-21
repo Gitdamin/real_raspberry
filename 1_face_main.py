@@ -88,14 +88,17 @@ def kakao():
           
          
           # write message             
-          driver.find_element_by_id('chatWrite').send_keys('외부인의 신원(id) = ' + str(id)) 
+          driver.find_element_by_id('chatWrite').send_keys('외부인의 신원은 ' + str(id) + '입니다.') 
           driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() 
         
     # When eye recognition failed
     # send an alternative image that is saved immediately after press the doorbell
     else :   
           driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_who.jpg')
-          
+          driver.find_element_by_id('chatWrite').send_keys('외부인의 신원을 알 수 없습니다.') 
+          driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click()
+            
+    sleep(2)        
     driver.quit()
     sleep(1)
     exit()  # End the program
