@@ -131,7 +131,7 @@ try:
              if now < time_2 :  
                 cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  
                 
-             eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.1, minNeighbors=10, minSize=(15,15))
+             eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.5, minNeighbors=10, minSize=(15,15))
              if len(eyes) :  # eye detection
                  for  x, y, w, h in eyes :
                      cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4)   # show white mini box on img
