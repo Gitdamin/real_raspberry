@@ -6,11 +6,12 @@ ___________
 ### 기능 1 : 얼굴인식 및 분류 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/129713360-dbe360da-44ed-40d6-b7fb-a79cb70e0e7d.jpg" width="640px" height="180px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/130420407-b2964133-4a5f-4cf3-bc09-4ccc130ce28c.png" width="640px" height="380px" title="33" alt="33"></img><br/>
 <br/>
 
 ### 기능 2 : 스토킹 대처 및 방지 - 수정
 <br/>
+
 
 _____________
 ## :star: 배경
@@ -47,13 +48,15 @@ ____________________
      - trainer파일로부터 id, confidence 추출 및 사용자에게 전송
      - 이전에 미리 학습된 인물이 아닐 경우, 신원(id) = ‘unknown’
 
-#### :zap: 구현 예시 - 수정
-<img src="https://user-images.githubusercontent.com/86276347/129705728-45ff55df-a777-4cc8-8db5-faf86117c84a.JPG" width="280px" height="200px" title="33" alt="33"></img>
-<img src="https://user-images.githubusercontent.com/86276347/129705749-64015f00-6b56-42b8-9eee-dea485a10667.JPG" width="280px" height="200px" title="33" alt="33"></img><br/>
+#### :zap: 구현 예시
+<img src="https://user-images.githubusercontent.com/86276347/130420364-23f13960-d4ef-4c07-9e03-7730d2ab301f.JPG" width="280px" height="188px" title="33" alt="33"></img> <br/>
+그림 1) 눈 인식 성공 + 학습 안 된 인물 <br/>  
+<img src="https://user-images.githubusercontent.com/86276347/130420371-0ad5531a-503c-423a-8332-91060dd6e17d.JPG" width="280px" height="188px" title="33" alt="33"></img> <br/>
+그림 2) 눈 인식 성공 + 미리 학습된 인물 <br/>
 <br/>
 
 
-
+___________________
 ### 기능 2 : 스토킹 대처 및 방지
 
 - 라즈베리파이를 활용하여 스토킹 및 주거침입 방지 초인종 개발
