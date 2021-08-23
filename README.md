@@ -6,7 +6,7 @@ ___________
 ### 기능 1 : 얼굴인식 및 분류 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/130420407-b2964133-4a5f-4cf3-bc09-4ccc130ce28c.png" width="640px" height="380px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/130423489-becd515b-0f2e-42ff-b7de-ebae4c99256c.png" width="640px" height="380px" title="33" alt="33"></img><br/>
 <br/>
 
 ### 기능 2 : 스토킹 대처 및 방지 - 수정
