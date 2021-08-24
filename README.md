@@ -12,7 +12,7 @@ ___________
 ### 기능 2 : 스토킹 대처 및 방지 - 수정
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/130436870-b67a5ade-9307-4578-8fae-cf75d17a2d56.png" width="700px" height="260px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/130436870-b67a5ade-9307-4578-8fae-cf75d17a2d56.png" width="710px" height="250px" title="33" alt="33"></img><br/>
 _____________
 ## :star: 배경
 
@@ -74,7 +74,7 @@ ___________________
 - 사용자의 카카오 채널에 ‘움직임 감지’ + 저장된 영상 + 스트리밍 주소 전송 
 
 #### :zap: 구현 예시
-<img src="https://user-images.githubusercontent.com/86276347/130436879-a116f1e2-421c-4015-bf81-28842d33455a.jpg" width="300px" height="120px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/130436879-a116f1e2-421c-4015-bf81-28842d33455a.jpg" width="280px" height="120px" title="33" alt="33"></img><br/>
 그림 3) 움직임 감지 + 녹화 영상 전송
 <br/>
 
