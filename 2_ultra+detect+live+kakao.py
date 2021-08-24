@@ -121,8 +121,14 @@ try:
         if (distance <= 30) : # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
             a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
             while (a > 10) : 
-                while (humanfound < 100): # 임의 숫자 / 사람 감지 횟수가 일정 횟수를 증가하면 다음 단계 진행 
-
+                while (humanfound < 100):
+                    # 임의 숫자 / 사람 감지 횟수가 일정 횟수를 증가하면 다음 단계 진행 
+                    ret, img = cap.read()
+                    gray = cv2.cvtColor(img, cv2.COLOR_BGRGRAY)
+                    bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30,30))
+                    for (x,y,w,h) in bodies:
+                        cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 3, 4, 0)
+                    
 
                         if len(rects)>0: # 사람이 한명이상 인식되면 
                             humanfound += 1 # 사람 감지 횟수를 1씩 증가시킴 - 카메라 openCV 통해 2차 확인 
