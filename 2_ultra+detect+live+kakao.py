@@ -90,6 +90,7 @@ try:
                 
                 if GPIO.input(14) is 0: # 초인종 버튼을 눌렀을때 (기능1 중복 방지)
                     time.sleep(60) # 테스트 후 값 수정 예정
+                    a = 0
                     break
                 
                 while(detected < 20):
