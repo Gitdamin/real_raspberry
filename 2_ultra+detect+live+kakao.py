@@ -84,7 +84,7 @@ try:
         
         distance = measure_average()
         time.sleep(1)
-        if (distance <= 30) : # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
+        if (distance <= 30): # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
             a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
             while (a > 10):
                 
@@ -93,7 +93,7 @@ try:
                     a = 0
                     break
                 
-                while(detected < 20):
+                while (detected < 20): # 테스트 후 값 수정 예정
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
