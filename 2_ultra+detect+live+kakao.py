@@ -86,7 +86,12 @@ try:
         time.sleep(1)
         if (distance <= 30) : # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
             a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
-            while (a > 10):               
+            while (a > 10):
+                
+                if GPIO.input(14) is 0: # 초인종 버튼을 눌렀을때 (기능1 중복 방지)
+                    time.sleep(60) # 테스트 후 값 수정 예정
+                    break
+                
                 while(detected < 20):
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
