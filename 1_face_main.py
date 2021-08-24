@@ -11,9 +11,9 @@ import urllib
 #GPIO pin num setting
 GPIO.setmode(GPIO.BCM) 
 GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
-GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for white led  
-GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for red led  
-GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for red led
+GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for red led  
+GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for green led  
+GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for blue led
 
 hz = 75
 red = GPIO.PWM(17, hz)    # create object red for PWM on port 17  
