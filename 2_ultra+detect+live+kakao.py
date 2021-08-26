@@ -79,7 +79,6 @@ try:
         nohuman = 0
         a = 0 # 초음파센서에 사람이 감지된 횟수
         flag = 0
-        app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
         time.sleep(1)
         
         distance = measure_average()
@@ -129,7 +128,9 @@ try:
                 cap.release()
                 cv2.destroyAllWindows()
                 subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환                 
-                 
+                
+                app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
+                
                 id = '~' # 카카오톡 아이디
                 pw = '~' # 카카오톡 비밀번호
 
