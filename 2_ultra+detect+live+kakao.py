@@ -1,7 +1,7 @@
 from selenium import webdriver
+
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 import time # time 함수 사용을 위한 라이브러리 불러오기
-import datetime
 
 import app # 실시간 영상 스트리밍 관련 app.py 모듈 
 
@@ -166,7 +166,6 @@ try:
                 time.sleep(3)
                 driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() # 메세지 전송 버튼
                 time.sleep(5)
-
                 driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/button').click() # 파일 업로드 버튼
                 driver.find_element_by_css_selector('#kakaoWrap > div.chat_popup > div.popup_body > div > div.write_chat2 > div.write_menu > div:nth-child(1) > div.upload_btn > input').send_keys('파일경로')
                 # 짧은 영상 파일 전송 
