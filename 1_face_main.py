@@ -3,8 +3,7 @@
 # [Phone] send the info such as captured image and one's id to user  
 
 import RPi.GPIO as GPIO 
-from time import sleep 
-import datetime
+import time
 from selenium import webdriver
 import urllib
 
@@ -46,7 +45,7 @@ def kakao():
     options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.187")  
           
     driver.get(KaKaoURL)
-    sleep(1)
+    time.sleep(1)
           
     driver.find_element_by_id('id_email_2').send_keys(id)  # write id
     driver.find_element_by_id('id_password_3').send_keys(pw)  # write password
@@ -55,14 +54,15 @@ def kakao():
         
     # personal chatroom load
     driver.get(ChatRoom)
-    sleep(1)
+    time.sleep(1)
         
     # write message
     driver.find_element_by_id('chatWrite').send_keys('초인종을 눌렀습니다.')  
     # When eye recognition and image storage are successful
     if count > 3 :   
           driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_03.jpg') 
-            
+          time.sleep(8)
+        
           # Trained code load
           recognizer = cv2.face.LBPHFaceRecognizer_create()
           recognizer.read('/home/pi/Documents/face_detection/trainer/trainer.yml')
@@ -96,16 +96,16 @@ def kakao():
           driver.find_element_by_id('chatWrite').send_keys('외부인의 신원을 알 수 없습니다.') 
           driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click()
             
-    sleep(2)        
+    time.sleep(2)        
     driver.quit()
-    sleep(1)
+    time.sleep(1)
     exit()  # End the program
    
 
 try: 
     count = 0  #initialize
     while 1 :
-       sleep(0.5)
+       time.sleep(0.5)
        if GPIO.input(14) is 0:
           print('PUSH THE BUTTON')
           # LED on
@@ -113,11 +113,11 @@ try:
           green.start(100) #start green led
           blue.start(100)  #start blue led
          
-          now = datetime.datetime.now()  #time out 기능
+          now = time.time()  #time out 기능
           # N seconds after ringing the doorbell
-          time_10 = now + datetime.timedelta(seconds =10) 
-          time_5 = now + datetime.timedelta(seconds =5)  
-          time_2 = now + datetime.timedelta(seconds =2)  
+          time_10 = time.time() + 10
+          time_5 = time.time() + 5
+          time_2 = time.time() + 2
         
           # Use haarcascade_frontalface_default.xml file as Classifier
           eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
@@ -127,7 +127,7 @@ try:
           while True:
              ret, img = cap.read() 
              gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-             now = datetime.datetime.now() 
+             now = time.time()
              # capture video and save images immediately after pressing the doorbell
              if now < time_2 :  
                 cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  
@@ -162,7 +162,7 @@ try:
                 break
                 
              # time out   
-             now = datetime.datetime.now()          
+             now = time.time()        
              if now >= time_10 :  
                 # LED off
                 red.stop()   #stop red led
