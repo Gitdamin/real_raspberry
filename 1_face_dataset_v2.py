@@ -1,5 +1,6 @@
+## Data set code ##
 # wearing glasses v1, 2, black mask
-# special case #
+# special case1 #
 
 import cv2
 import numpy as np
