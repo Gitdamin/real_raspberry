@@ -9,7 +9,7 @@ ___________
 <img src="https://user-images.githubusercontent.com/86276347/130423489-becd515b-0f2e-42ff-b7de-ebae4c99256c.png" width="640px" height="380px" title="33" alt="33"></img><br/>
 <br/>
 
-### 기능 2 : 스토킹 대처 및 방지 - 수정
+### 기능 2 : 스토킹 대처 및 방지
 <br/>
 
 <img src="https://user-images.githubusercontent.com/86276347/130436870-b67a5ade-9307-4578-8fae-cf75d17a2d56.png" width="710px" height="250px" title="33" alt="33"></img><br/>
