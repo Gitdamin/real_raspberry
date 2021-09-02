@@ -1,5 +1,6 @@
 ## Data set code ##
 # capture and save faces per id 
+# normal ways #
 
 import cv2
 import os
