@@ -5,7 +5,7 @@ import numpy as np
 # face 분류기 로드
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 # 가면 영상
-face_mask = cv2.imread('/home/pi/Documents/face_detection/glass2.jpg')
+face_mask = cv2.imread('/home/pi/Documents/face_detection/glasses2.jpg')
 #cv2.imshow('test',face_mask)
 h_mask, w_mask = face_mask.shape[:2]
 
