@@ -148,6 +148,7 @@ def kakao1():
     time.sleep(2)        
     driver.quit()
     time.sleep(1)
+    count = 0
     #exit()  # End the program
     
 
@@ -193,8 +194,9 @@ def kakao1():
     driver.quit()
     time.sleep(60) # 시간 수정 예정
     
-    
-    
+font = cv2.FONT_HERSHEY_SIMPLEX
+names = ['A', 'B', 'C']  # 외부인의 신원 / id
+
 try:
     if os.path.isfile("video.mp4"):  # 기존 mp4 파일 삭제 
         os.remove("video.mp4")
@@ -210,21 +212,20 @@ try:
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
     out = cv2.VideoWriter('video.avi', fourcc, 25.0, (640, 480))
     
-    while True:        
-        detected = 0 # 사람 감지 횟수
-        nohuman = 0
-        a = 0 # 초음파센서에 사람이 감지된 횟수
-        flag = 0
-        count = 0
-        time.sleep(1)
+    detected = 0 # 사람 감지 횟수
+    nohuman = 0
+    a = 0 # 초음파센서에 사람이 감지된 횟수
+    flag = 0
+    count = 0  # 저장할 사진의 갯수
+    
+    while True:   
         
         distance = measure_average()
         time.sleep(1)
-        if (distance <= 30): # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
+        if (distance <= 50):  # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
             a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
-            while (a > 10):
-                
-                if GPIO.input(14) is 0: # 초인종 버튼을 눌렀을때 (기능1 중복 방지)
+            
+        if GPIO.input(14) is 0: # 초인종 버튼을 눌렀을때 (기능1 중복 방지)
                     print('PUSH THE BUTTON')
                     # LED on
                     red.start(100)   #start red led
@@ -294,12 +295,19 @@ try:
              
                     cap.release()
                     cv2.destroyAllWindows()
+                    
+                    # initialize
                     a = 0
+                    detected = 0 # 사람 감지 횟수
+                    nohuman = 0
+                    flag = 0
+                    
                     kakao1()
                     time.sleep(60) # 테스트 후 값 수정 예정
-                    break
-                
-                while (detected < 20): # 테스트 후 값 수정 예정
+                    
+                    
+            while (a > 10):  # 초음파 센서로 1차 확인 이후
+                while (detected < 20): # 사람의 몸 인식 / 테스트 후 값 수정 예정
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
@@ -315,7 +323,7 @@ try:
                     else:
                         nohuman = nohuman + 1
                     
-                    if detected > 10: # 테스트 후 값 수정 예정
+                    if detected > 10: # 녹화 시작 (detect : 10~20) / 테스트 후 값 수정 예정
                         out.write(img)
                     
                     if nohuman == 1000: # 테스트 후 값 수정 예정
