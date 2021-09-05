@@ -212,13 +212,13 @@ try:
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
     out = cv2.VideoWriter('video.avi', fourcc, 25.0, (640, 480))
     
-    detected = 0 # 사람 감지 횟수
-    nohuman = 0
-    a = 0 # 초음파센서에 사람이 감지된 횟수
-    flag = 0
-    count = 0  # 저장할 사진의 갯수
-    
+    a = 0  # 초음파센서 감지 횟수
+   
     while True:   
+        flag = 0
+        detected = 0 # 사람 감지 횟수
+        nohuman = 0
+        count = 0  # 저장할 사진의 갯수
         
         distance = measure_average()
         time.sleep(1)
@@ -306,8 +306,8 @@ try:
                     time.sleep(60) # 테스트 후 값 수정 예정
                     
                     
-            while (a > 10):  # 초음파 센서로 1차 확인 이후
-                while (detected < 20): # 사람의 몸 인식 / 테스트 후 값 수정 예정
+        while (a > 10):  # 초음파 센서로 1차 확인 이후
+                while (detected < 200): # 사람의 몸 인식 / 테스트 후 값 수정 예정 / 초당 30 프레임
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
@@ -316,17 +316,17 @@ try:
                     if (ret):
                         cv2.imshow('Frame',img)
                         #print(str(len(bodies)))
-                    if len(bodies) > 0:
+                    if len(bodies) > 0:  # 사람의 몸 인식
                         detected = detected + 1
-                        nohuman = 0
+                       # nohuman = 0
                         print(str(detected))
                     else:
                         nohuman = nohuman + 1
                     
-                    if detected > 10: # 녹화 시작 (detect : 10~20) / 테스트 후 값 수정 예정
+                    if detected > 10: # 녹화 시작 / 테스트 후 값 수정 예정
                         out.write(img)
                     
-                    if nohuman == 1000: # 테스트 후 값 수정 예정
+                    if nohuman == 200 : # 테스트 후 값 수정 예정
                         a = 0
                         detected = 0
                         nohuman = 0
@@ -335,19 +335,16 @@ try:
                         
                     if cv2.waitKey(1) == ord('q'):
                         break
-                if flag == 1:
+                if flag == 1: # 처음부터 다시 시작
                     break
-        if flag == 1:
-            break
+       
                  
                 cap.release()
                 cv2.destroyAllWindows()
                 subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환                 
                 
                 kakao2()
- 
-        else:
-            a = 0 # 일정 거리 이내에 사람이 감지되지않음
+
     
 finally:
     GPIO.cleanup()        
