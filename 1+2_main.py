@@ -44,32 +44,28 @@ def measure(): # 초음파 센서로 거리 측정하는 함수
     
     return distance
 
-def measure_average(): # 10초동안 평균 거리 측정하는 함수
-    distance1 = measure()
-    time.sleep(1)
-    distance2 = measure()
-    time.sleep(1)
-    distance3 = measure()
-    time.sleep(1)
-    distance4 = measure()
-    time.sleep(1)
-    distance5 = measure()
-    time.sleep(1)
-    distance6 = measure()
-    time.sleep(1)
-    distance7 = measure()
-    time.sleep(1)
-    distance8 = measure()
-    time.sleep(1)
-    distance9 = measure()
-    time.sleep(1)
-    distance10 = measure()
-
-    distance = (distance1 + distance2 + distance3 + distance4 + distance5 + distance6 + distance7 + distance8 + distance9 + distance10) / 10
-    #정밀도를 높이기 위해 1초마다 거리를 측정하여 10초동안의 평균거리 계산
+def measure_average():  # mean distance / time.sleep() 제거 버전
+  while 1 :  
+    n = 0
+    distance = 0
+    now = time.time()
+    time_10 = now + 10
     
-    print(str(distance))    
+    while 1 :
+        n += 1
+        distance += measure()
+        
+        now = time.time()
+        if now > time_10 :
+            break
+        
+        if GPIO.input(14) is 0:
+            break
+    
+    distance = distance / n
+    #print(str(distance))    
     return distance
+
 
 # change to a larger size
 def set_size(img, scale):
@@ -148,7 +144,7 @@ def kakao1():
     time.sleep(2)        
     driver.quit()
     time.sleep(1)
-    count = 0
+    
     #exit()  # End the program
     
 
@@ -190,12 +186,14 @@ def kakao1():
     driver.find_element_by_css_selector('#kakaoWrap > div.chat_popup > div.popup_body > div > div.write_chat2 > div.write_menu > div:nth-child(1) > div.upload_btn > input').send_keys('파일경로')
    
     # 짧은 영상 파일 전송 
-    time.sleep(20) 
+    time.sleep(2) 
     driver.quit()
-    time.sleep(60) # 시간 수정 예정
-    
+    time.sleep(1) 
+  
+
 font = cv2.FONT_HERSHEY_SIMPLEX
-names = ['A', 'B', 'C']  # 외부인의 신원 / id
+names = ['A', 'B', 'C']  # 외부인의 신원 임의 지정 / id
+
 
 try:
     if os.path.isfile("video.mp4"):  # 기존 mp4 파일 삭제 
@@ -220,14 +218,32 @@ try:
         nohuman = 0
         count = 0  # 저장할 사진의 갯수
         
+        #GPIO pin num setting / time out 방지 위치 변경
+        GPIO.setmode(GPIO.BCM) 
+        GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
+        GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for red led  
+        GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for green led  
+        GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for blue led
+
+        TRIG = 18 # TRIG 핀을 BCM 18번에 연결
+        ECHO = 24 # ECHO 핀을 BCM 24번에 연결
+        GPIO.setup(TRIG, GPIO.OUT) # 핀 모드 설정
+        GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
         distance = measure_average()
-        time.sleep(1)
+        
         if (distance <= 50):  # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
-            a = a+1 # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
+            a = a+1  # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
             
-        if GPIO.input(14) is 0: # 초인종 버튼을 눌렀을때 (기능1 중복 방지)
+        if GPIO.input(14) is 0:  # if push the button, / 기능 중복 방지
+                    
                     print('PUSH THE BUTTON')
+                    
                     # LED on
+                    hz = 75
+                    red = GPIO.PWM(17, hz)    # create object red for PWM on port 17  
+                    green = GPIO.PWM(27, hz)      # create object green for PWM on port 27   
+                    blue = GPIO.PWM(22, hz)      # create object blue for PWM on port 22 
+                    
                     red.start(100)   #start red led
                     green.start(100) #start green led
                     blue.start(100)  #start blue led
@@ -303,7 +319,7 @@ try:
                     flag = 0
                     
                     kakao1()
-                    time.sleep(60) # 테스트 후 값 수정 예정
+                    time.sleep(10) 
                     
                     
         while (a > 10):  # 초음파 센서로 1차 확인 이후
