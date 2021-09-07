@@ -11,23 +11,6 @@ import subprocess
 import os
 
 
-#GPIO pin num setting
-GPIO.setmode(GPIO.BCM) 
-GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
-GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for red led  
-GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for green led  
-GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for blue led
-
-hz = 75
-red = GPIO.PWM(17, hz)    # create object red for PWM on port 17  
-green = GPIO.PWM(27, hz)      # create object green for PWM on port 27   
-blue = GPIO.PWM(22, hz)      # create object blue for PWM on port 22 
-
-TRIG = 18 # TRIG 핀을 BCM 18번에 연결
-ECHO = 24 # ECHO 핀을 BCM 24번에 연결
-GPIO.setup(TRIG, GPIO.OUT) # 핀 모드 설정
-GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
-
 def measure(): # 초음파 센서로 거리 측정하는 함수
     GPIO.output(TRIG, True)
     time.sleep(0.00001)
