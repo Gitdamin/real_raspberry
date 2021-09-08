@@ -4,9 +4,8 @@ import numpy as np
 
 # face 분류기 로드
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-# 가면 영상
+# call mask image
 face_mask = cv2.imread('/home/pi/Documents/face_detection/mask_0.jpg')
-#cv2.imshow('test',face_mask)
 h_mask, w_mask = face_mask.shape[:2]
 
 if face_cascade.empty():
@@ -17,8 +16,8 @@ scaling_factor = 1
 
 while True:
     
-    # 사람의 정면 이미지 
-    frame = cv2.imread('/home/pi/Documents/face_detection/image4.jpg', 1)
+    # frontal face image
+    frame = cv2.imread('/~.jpg', 1)
     frame = cv2.resize(frame, None,fx=scaling_factor,fy=scaling_factor, interpolation=cv2.INTER_AREA)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -33,8 +32,6 @@ while True:
             w = int(1.1 * w)
             h = int(0.9* h)
             
-          
-            # 사람의 얼굴 
             frame_roi = frame[y:y + h, x:x + w]
           
             face_mask_small = cv2.resize(face_mask, (w, h), interpolation=cv2.INTER_AREA)
@@ -54,7 +51,8 @@ while True:
         
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     cv2.imshow('Face Detector', gray)
-    cv2.imwrite("/home/pi/Documents/face_detection/" + "mask_success.jpg", gray)
+    # save image
+    cv2.imwrite("/~.jpg", gray)
     c = cv2.waitKey(1)
     if c == 27:
         break
