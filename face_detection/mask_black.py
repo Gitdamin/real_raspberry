@@ -53,7 +53,8 @@ while True:
         
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     cv2.imshow('Face Detector', gray)
-    cv2.imwrite("/home/pi/Documents/face_detection/" + "mask_success.jpg", gray)
+    # save image
+    cv2.imwrite("/~.jpg", gray)
     c = cv2.waitKey(1)
     if c == 27:
         break
