@@ -41,8 +41,13 @@ while True:
             y = int(y + h*0.03)
             w = int(1.2* w)
             h = int(0.8* h) '''
-
-        # wearing mask _ blask version 
+        
+        # wearing mask _ white
+        ''' y = int(y + h*0.28)
+            w = int(1.1 * w)
+            h = int(0.9* h) '''
+            
+        # wearing mask _ blask
         ''' y = int(y + h*0.2) '''
 
           
