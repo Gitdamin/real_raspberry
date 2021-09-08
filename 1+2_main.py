@@ -239,9 +239,7 @@ try:
         
                     # Use haarcascade_frontalface_default.xml file as Classifier
                     eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-                    cap = cv2.VideoCapture(-1)
-                    cap.set(3,640) # set Width
-                    cap.set(4,480) # set Height
+                   
                     while True:
                         ret, img = cap.read() 
                         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -325,7 +323,7 @@ try:
                     if detected > 10: # 녹화 시작 / 테스트 후 값 수정 예정
                         out.write(img)
                     
-                    if nohuman == 200 : # 테스트 후 값 수정 예정
+                    if nohuman == 1000 : # 테스트 후 값 수정 예정
                         a = 0
                         detected = 0
                         nohuman = 0
