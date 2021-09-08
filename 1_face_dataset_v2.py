@@ -1,6 +1,6 @@
 ## Data set code ##
 # wearing glasses v1, 2, black mask  &  change brightness
-# special case #
+# special case # 주어진 하나의 사진에 여러 변화를 주어 이미지 수집
 
 import cv2
 import numpy as np
