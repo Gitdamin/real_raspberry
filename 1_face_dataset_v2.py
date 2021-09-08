@@ -1,6 +1,6 @@
 ## Data set code ##
-# wearing glasses v1, 2, black mask
-# special case1 #
+# wearing glasses v1, 2, black mask  &  change brightness
+# special case #
 
 import cv2
 import numpy as np
@@ -17,6 +17,9 @@ if face_cascade.empty():
 
 #cv2.imshow('Captured Image', img_who)
 #scaling_factor = 1
+
+face_id = input('\n write your id and push the enter button => ')
+char = 'mask'  # personal characteristic
 
 while True:
     
@@ -65,10 +68,31 @@ while True:
         frame[y:y + h, x:x + w] = cv2.add(masked_face, masked_frame)
         
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    cv2.imshow('Face Detector', gray)
-    cv2.imwrite("/home/pi/Documents/face_detection/" + "~.jpg", gray)
-    c = cv2.waitKey(1)
-    if c == 27:
-        break
-cap.release()
+    
+    # general image
+    cv2.imwrite("dataset/User." + str(face_id) + '.' + str(char) + ".0.jpg", gray)
+    src = cv2.imread('dataset/User.'+ str(face_id) + '.' + str(char) + '.0.jpg', cv2.IMREAD_COLOR)
+   
+    # initialize 
+    val = 10  
+    count = 0
+    
+    while 1 :
+    
+        array = np.full(src.shape, (val, val, val), dtype=np.uint8)
+        #num += 1
+        add = cv2.add(src, array)
+        sub = cv2.subtract(src, array)
+        val += 4
+        count += 1
+        if val <= 30 :
+        
+            cv2.imwrite("dataset/User." + str(face_id) + '.' + str(char) + '_add' + '.' + str(count) + ".jpg", add)
+            cv2.imwrite("dataset/User." + str(face_id) + '.' + str(char) + '_sub' + '.' + str(count) + ".jpg", sub)
+        else :
+            exit()
+    
+    
+cv2.waitKey()
 cv2.destroyAllWindows()
+    
