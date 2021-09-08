@@ -1,6 +1,6 @@
 ## Data set code ##
 # capture and save faces per id 
-# normal ways #
+# normal ways # 파이카메라 앞에서 직접 얼굴을 학습시키는 경우
 
 import cv2
 import os
