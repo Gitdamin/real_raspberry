@@ -15,17 +15,13 @@ h_mask, w_mask = face_mask.shape[:2]
 if face_cascade.empty():
     raise IOError('Unable to load the face cascade classifier xml file')
 
-#cv2.imshow('Captured Image', img_who)
-#scaling_factor = 1
-
 face_id = input('\n write your id and push the enter button => ')
 char = 'mask'  # personal characteristic
 
 while True:
     
-    # call outsider face image 
+    # call outsider face (model) image 
     frame = cv2.imread('/home/pi/Documents/face_detection/~.jpg', 1)
-    #frame = cv2.resize(frame, None,fx=scaling_factor,fy=scaling_factor, interpolation=cv2.INTER_AREA)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     face_rects = face_cascade.detectMultiScale(gray, 1.2, 3)
@@ -56,15 +52,11 @@ while True:
             
             gray_mask = cv2.cvtColor(face_mask_small, cv2.COLOR_BGR2GRAY)
             ret, mask = cv2.threshold(gray_mask, 240, 255, cv2.THRESH_BINARY_INV)
-            #cv2.imshow('gray_mask', gray_mask)
-            #cv2.imshow('mask', mask)
+           
         mask_inv = cv2.bitwise_not(mask)
         masked_face = cv2.bitwise_and(face_mask_small, face_mask_small, mask=mask)
         masked_frame = cv2.bitwise_and(frame_roi, frame_roi, mask=mask_inv)
-        
-        #cv2.imshow('masked_face', masked_face)
-        #cv2.imshow('masked_frame', masked_frame)
-        
+       
         frame[y:y + h, x:x + w] = cv2.add(masked_face, masked_frame)
         
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
