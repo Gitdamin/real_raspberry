@@ -335,7 +335,9 @@ try:
                 if flag == 1: # 처음부터 다시 시작
                     break
        
-                 
+        if flag == 1: # 처음부터 다시 시작
+              break 
+                
                 cap.release()
                 cv2.destroyAllWindows()
                 subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환                 
