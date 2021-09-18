@@ -78,7 +78,7 @@ def kakao1():
     driver.find_element_by_id('id_email_2').send_keys(id)  # write id
     driver.find_element_by_id('id_password_3').send_keys(pw)  # write password
     driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()  # click the input button
-    sleep(1)
+    time.sleep(1)
         
     # personal chatroom load
     driver.get(ChatRoom)
@@ -155,7 +155,7 @@ def kakao1():
     driver.find_element_by_id('id_email_2').send_keys(id)  # write id
     driver.find_element_by_id('id_password_3').send_keys(pw)  # write password
     driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()  # click the input button
-    sleep(1)
+    time.sleep(1)
         
     # personal chatroom load
     driver.get(ChatRoom)
@@ -189,6 +189,8 @@ try:
     cap.set(3,640) # set Width
     cap.set(4,480) # set Height
     fullbody_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+    upperbody_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_upperbody.xml')
+    eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
     
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
     out = cv2.VideoWriter('video.avi', fourcc, 25.0, (640, 480))
@@ -214,8 +216,12 @@ try:
         GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
         distance = measure_average()
         
-        if (distance <= 50):  # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
+        if (distance <= 80):  # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
+            
+            print('평균거리')
+            print(distance)
             a = a+1  # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
+            print(a)  # 
             
         if GPIO.input(14) is 0:  # if push the button, / 기능 중복 방지
                     
@@ -303,27 +309,37 @@ try:
                     time.sleep(10) 
                     
                     
-        while (a > 10):  # 초음파 센서로 1차 확인 이후
-                while (detected < 200): # 사람의 몸 인식 / 테스트 후 값 수정 예정 / 초당 30 프레임
+        while (a > 6):  # 초음파 센서로 1차 확인 이후
+                while (detected < 50): # 사람의 몸 인식 / 초당 30 프레임 / 약 3~5초 
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
+                    upper_bodies = upperbody_cascade.detectMultiScale(gray, 1.5, 2, 0, (30, 30))
+                    eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.2, minNeighbors= 10, minSize=(15,15))
                     for (x,y,w,h) in bodies:
                         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),3, 4, 0)
+                        
+                    for (x,y,w,h) in upper_bodies:
+                        cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,255),3, 4, 0)
+                        
+                    for (x,y,w,h) in eyes:
+                        cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,255),3, 4, 0)
+                        
                     if (ret):
                         cv2.imshow('Frame',img)
                         #print(str(len(bodies)))
-                    if len(bodies) > 0:  # 사람의 몸 인식
+                        
+                    if len(bodies) > 0 or len(upper_bodies) or len(eyes):  # 사람의 몸 전체, 상체, 눈 인식
                         detected = detected + 1
                        # nohuman = 0
-                        print(str(detected))
+                        print(str(detected))  # 
                     else:
                         nohuman = nohuman + 1
                     
-                    if detected > 10: # 녹화 시작 / 테스트 후 값 수정 예정
+                    if detected > 5 : # 녹화 시작 
                         out.write(img)
                     
-                    if nohuman == 1000 : # 테스트 후 값 수정 예정
+                    if nohuman == 1000 : # 인식이 지속적으로 안 될 경우 초기화
                         a = 0
                         detected = 0
                         nohuman = 0
@@ -335,14 +351,20 @@ try:
                 if flag == 1: # 처음부터 다시 시작
                     break
        
-        if flag == 1: # 처음부터 다시 시작
-              break 
-                
+       
                 cap.release()
                 cv2.destroyAllWindows()
-                subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환                 
-                
+                subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환 
                 kakao2()
+                
+               
+                #initialize
+                a = 0
+                flag = 0
+                detected = 0 # 사람 감지 횟수
+                nohuman = 0
+                count = 0  # 저장할 사진의 갯수
+                break
 
     
 finally:
