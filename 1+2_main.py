@@ -46,7 +46,8 @@ def measure_average():  # mean distance / time.sleep() 제거 버전
             break
     
     distance = distance / n
-    #print(str(distance))    
+    print('평균거리')  # 확인용
+    print(str(distance))    
     return distance
 
 
@@ -177,6 +178,7 @@ def kakao1():
 font = cv2.FONT_HERSHEY_SIMPLEX
 names = ['A', 'B', 'C']  # 외부인의 신원 임의 지정 / id
 
+n = 0
 
 try:
     if os.path.isfile("video.mp4"):  # 기존 mp4 파일 삭제 
@@ -214,14 +216,16 @@ try:
         ECHO = 24 # ECHO 핀을 BCM 24번에 연결
         GPIO.setup(TRIG, GPIO.OUT) # 핀 모드 설정
         GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
+        
+        if num < 1 :  # initialize distance
+            num = measure_average()
+            
         distance = measure_average()
         
-        if (distance <= 80):  # 임의 숫자 / 일정 거리 이내에 사람이 감지되면 / 테스트 후 값 수정 예정
+        if (distance <= num - 25):  # 기존 벽과의 거리 측정 후 기준 설정 / 일정 거리 이내에 사람이 감지되면,
             
-            print('평균거리')
-            print(distance)
-            a = a+1  # 감지 횟수를 1씩 증가시킴 - 초음파 센서 통해 1차 확인
-            print(a)  # 
+            a = a+1  # 초음파 센서 통해 1차 확인
+            print(a)   
             
         if GPIO.input(14) is 0:  # if push the button, / 기능 중복 방지
                     
