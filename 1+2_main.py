@@ -178,7 +178,7 @@ def kakao1():
 font = cv2.FONT_HERSHEY_SIMPLEX
 names = ['A', 'B', 'C']  # 외부인의 신원 임의 지정 / id
 
-n = 0
+num = 0
 
 try:
     if os.path.isfile("video.mp4"):  # 기존 mp4 파일 삭제 
