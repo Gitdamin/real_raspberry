@@ -11,7 +11,7 @@ import subprocess
 import os
 
 
-def measure(): # 초음파 센서로 거리 측정하는 함수
+def measure(): # measure distance using Ultra.
     GPIO.output(TRIG, True)
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
@@ -27,7 +27,7 @@ def measure(): # 초음파 센서로 거리 측정하는 함수
     
     return distance
 
-def measure_average():  # mean distance / time.sleep() 제거 버전
+def measure_average():  # mean distance / no time.sleep() 
   while 1 :  
     n = 0
     distance = 0
@@ -46,10 +46,12 @@ def measure_average():  # mean distance / time.sleep() 제거 버전
             break
     
     distance = distance / n
-    print('평균거리')  # 확인용
+    print('평균거리')  # checking
     print(str(distance))    
     return distance
 
+font = cv2.FONT_HERSHEY_SIMPLEX
+names = ['A', 'B', 'C', '성범죄자']  # randomly
 
 # change to a larger size
 def set_size(img, scale):
@@ -118,6 +120,10 @@ def kakao1():
           driver.find_element_by_id('chatWrite').send_keys('외부인의 신원은 ' + str(id) + '입니다.') 
           driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() 
         
+          if id == '성범죄자' :
+            driver.find_element_by_id('chatWrite').send_keys('[위험] 해당 외부인이 성범죄자일 확률이 ' + str(confidence) + '% 입니다.')  
+            driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() 
+        
     # When eye recognition failed
     # send an alternative image that is saved immediately after press the doorbell
     else :   
@@ -162,31 +168,26 @@ def kakao1():
     driver.get(ChatRoom)
     time.sleep(1) 
     
-    driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') # 메세지 작성
-    time.sleep(3)
-    driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() # 메세지 전송 버튼
-    time.sleep(5)
-    driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/button').click() # 파일 업로드 버튼
-    driver.find_element_by_css_selector('#kakaoWrap > div.chat_popup > div.popup_body > div > div.write_chat2 > div.write_menu > div:nth-child(1) > div.upload_btn > input').send_keys('파일경로')
-   
-    # 짧은 영상 파일 전송 
+    # write message
+    driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') 
+    driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() 
+    driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Desktop/video.mp4')
+      
     time.sleep(2) 
     driver.quit()
     time.sleep(1) 
   
 
-font = cv2.FONT_HERSHEY_SIMPLEX
-names = ['A', 'B', 'C']  # 외부인의 신원 임의 지정 / id
-
+# Setting the distance between the doorbell and the opposite wall
 num = 0
 
 try:
-    if os.path.isfile("video.mp4"):  # 기존 mp4 파일 삭제 
+    if os.path.isfile("video.mp4"):  # Delete the existing .mp4 file
         os.remove("video.mp4")
-    if os.path.isfile("video.avi"):  # 기존 avi 파일 삭제
+    if os.path.isfile("video.avi"):  # Delete the existing .avi file
         os.remove("video.avi")
         
-    # 카메라 초기설정
+    # Initial camera setting
     cap = cv2.VideoCapture(-1)
     cap.set(3,640) # set Width
     cap.set(4,480) # set Height
@@ -197,39 +198,39 @@ try:
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
     out = cv2.VideoWriter('video.avi', fourcc, 25.0, (640, 480))
     
-    a = 0  # 초음파센서 감지 횟수
+    a = 0  # The number of ultrasonic sensors detected
    
     while True:   
         flag = 0
-        detected = 0 # 사람 감지 횟수
+        detected = 0 # The number of people detected
         nohuman = 0
-        count = 0  # 저장할 사진의 갯수
+        count = 0  # The number of photos to save
         
-        #GPIO pin num setting / time out 방지 위치 변경
+        #GPIO pin num setting / prevention of time out 
         GPIO.setmode(GPIO.BCM) 
         GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pull down mode
         GPIO.setup(17, GPIO.OUT) # set GPIO 17 as output for red led  
         GPIO.setup(27, GPIO.OUT) # set GPIO 27 as output for green led  
         GPIO.setup(22, GPIO.OUT) # set GPIO 22 as output for blue led
 
-        TRIG = 18 # TRIG 핀을 BCM 18번에 연결
-        ECHO = 24 # ECHO 핀을 BCM 24번에 연결
-        GPIO.setup(TRIG, GPIO.OUT) # 핀 모드 설정
-        GPIO.setup(ECHO, GPIO.IN) # 핀 모드 설정
+        TRIG = 18 
+        ECHO = 24 
+        GPIO.setup(TRIG, GPIO.OUT) 
+        GPIO.setup(ECHO, GPIO.IN)
         
         if num < 1 :  # initialize distance
             num = measure_average()
             
         distance = measure_average()
         
-        if (distance <= num - 25):  # 기존 벽과의 거리 측정 후 기준 설정 / 일정 거리 이내에 사람이 감지되면,
+        if (distance <= num - 25):  # Error -25cm
             
-            a = a+1  # 초음파 센서 통해 1차 확인
-            print(a)   
+            a = a+1  # First confirmation through ultrasonic sensor
+            print(a)  # checking 
             
-        if GPIO.input(14) is 0:  # if push the button, / 기능 중복 방지
+        if GPIO.input(14) is 0:  # if push the button, (Prevent duplication of functions)
                     
-                    print('PUSH THE BUTTON')
+                    print('PUSH THE BUTTON') # checking
                     
                     # LED on
                     hz = 75
@@ -241,7 +242,7 @@ try:
                     green.start(100) #start green led
                     blue.start(100)  #start blue led
          
-                    now = time.time()  #time out 기능
+                    now = time.time()  # time out function
                     # N seconds after ringing the doorbell
                     time_10 = time.time() + 10
                     time_5 = time.time() + 5
@@ -305,7 +306,7 @@ try:
                     
                     # initialize
                     a = 0
-                    detected = 0 # 사람 감지 횟수
+                    detected = 0 
                     nohuman = 0
                     flag = 0
                     
@@ -313,8 +314,8 @@ try:
                     time.sleep(10) 
                     
                     
-        while (a > 6):  # 초음파 센서로 1차 확인 이후
-                while (detected < 50): # 사람의 몸 인식 / 초당 30 프레임 / 약 3~5초 
+        while (a > 6): 
+                while (detected < 50): # 2nd confirmation through human body recognition / about 2~4 sec 
                     ret, img = cap.read()
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
@@ -333,17 +334,16 @@ try:
                         cv2.imshow('Frame',img)
                         #print(str(len(bodies)))
                         
-                    if len(bodies) > 0 or len(upper_bodies) or len(eyes):  # 사람의 몸 전체, 상체, 눈 인식
+                    if len(bodies) > 0 or len(upper_bodies) or len(eyes):  # Recognizing the whole body, upper body, and eyes
                         detected = detected + 1
-                       # nohuman = 0
-                        print(str(detected))  # 
+                        print(str(detected))  # checking 
                     else:
                         nohuman = nohuman + 1
                     
                     if detected > 5 : # 녹화 시작 
                         out.write(img)
                     
-                    if nohuman == 1000 : # 인식이 지속적으로 안 될 경우 초기화
+                    if nohuman == 1000 : # If it's not recognized continuously, Reset!
                         a = 0
                         detected = 0
                         nohuman = 0
@@ -352,22 +352,22 @@ try:
                         
                     if cv2.waitKey(1) == ord('q'):
                         break
-                if flag == 1: # 처음부터 다시 시작
+                if flag == 1: # Return to the starting line 
                     break
        
        
                 cap.release()
                 cv2.destroyAllWindows()
-                subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환 
+                subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # Convert avi file to mp4 file
                 kakao2()
                 
                
                 #initialize
                 a = 0
                 flag = 0
-                detected = 0 # 사람 감지 횟수
+                detected = 0 
                 nohuman = 0
-                count = 0  # 저장할 사진의 갯수
+                count = 0 
                 break
 
     
