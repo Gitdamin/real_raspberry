@@ -67,7 +67,7 @@ ___________________
 #### :zap: 순서 및 흐름
 - 초음파 센서로 (초인종으로부터) 일정 거리 안에 접근한 외부인 감지
 - 이후 카메라 촬영을 통해 사람이 존재하는지 확인
-  - openCV의 HaarCascade 방식을 이용해 full + upper body 인식 
+  - openCV의 HaarCascade 방식을 이용해 full body / upper body / eye 인식 
 - 일정 시간 이상 외부인이 인식될 경우 video.avi 파일에 비디오 녹화 시작
 - video.avi 파일을 video.mp4 파일로 변환
 - 사용자의 카카오 채널에 ‘움직임 감지’ + 저장된 영상 전송 
