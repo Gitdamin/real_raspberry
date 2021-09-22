@@ -3,8 +3,6 @@ from selenium import webdriver
 import RPi.GPIO as GPIO # GPIO를 이용하기 위한 라이브러리 불러오기
 import time # time 함수 사용을 위한 라이브러리 불러오기
 
-import app # 실시간 영상 스트리밍 관련 app.py 모듈 
-
 import cv2
 import subprocess
 import os
@@ -128,8 +126,6 @@ try:
                 cap.release()
                 cv2.destroyAllWindows()
                 subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # avi 파일을 mp4 파일로 변환                 
-                
-                app.app.run(host='0.0.0.0', debug=True, threaded=True) # 실시간 영상 스트리밍
                 
                 id = '~' # 카카오톡 아이디
                 pw = '~' # 카카오톡 비밀번호
