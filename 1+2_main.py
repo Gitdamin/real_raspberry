@@ -285,7 +285,8 @@ try:
   
                 
                         k = cv2.waitKey(30) & 0xff
-                        if k == 27: # press 'ESC' to quit 
+                        if k == 27: # press 'ESC' to quit
+                            GPIO.cleanup()   
                             break
                 
                         # time out   
@@ -301,7 +302,7 @@ try:
                                 print("no detected") 
                             break
              
-                    cap.release()
+                    #cap.release()
                     cv2.destroyAllWindows()
                     
                     # initialize
@@ -320,9 +321,10 @@ try:
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
                     bodies = fullbody_cascade.detectMultiScale(gray, 1.8, 2, 0, (30, 30))
                     upper_bodies = upperbody_cascade.detectMultiScale(gray, 1.5, 2, 0, (30, 30))
-                    eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.2, minNeighbors= 10, minSize=(15,15))
+                    eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.5, minNeighbors=10, minSize=(15,15)) # increase the accuracy
+                   
                     for (x,y,w,h) in bodies:
-                        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),3, 4, 0)
+                        cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,255),3, 4, 0)
                         
                     for (x,y,w,h) in upper_bodies:
                         cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,255),3, 4, 0)
@@ -334,7 +336,7 @@ try:
                         cv2.imshow('Frame',img)
                         #print(str(len(bodies)))
                         
-                    if len(bodies) > 0 or len(upper_bodies) or len(eyes):  # Recognizing the whole body, upper body, and eyes
+                    if len(bodies) > 0 or len(upper_bodies) or len(eyes):  # Recognizing the whole & upper body, eyes
                         detected = detected + 1
                         print(str(detected))  # checking 
                     else:
@@ -350,13 +352,20 @@ try:
                         flag = 1
                         break
                         
+                    if GPIO.input(14) is 0 : # if push the button, (Prevent duplication of functions)
+                        cv2.destroyAllWindows()
+                        flag = 1
+                        break    
+                        
                     if cv2.waitKey(1) == ord('q'):
+                        GPIO.cleanup()   
                         break
+                        
                 if flag == 1: # Return to the starting line 
                     break
        
        
-                cap.release()
+                #cap.release()
                 cv2.destroyAllWindows()
                 subprocess.run('MP4Box -add video.avi video.mp4', shell=True)  # Convert avi file to mp4 file
                 kakao2()
