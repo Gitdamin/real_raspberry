@@ -55,22 +55,28 @@ ___________________
 
 - 라즈베리파이를 활용하여 스토킹 및 주거침입 방지 초인종 개발
 - 외부인의 접근이 일정 시간 이상 지속될 경우 영상 촬영 및 저장
-- 실시간 영상 스트리밍 기능을 통해 문 앞 상황 확인 가능
-- 사용자에게 짧은 영상 및 스트리밍 주소 전달
+- 초음파센서와 openCV 기능을 결합하여 수상한 움직임 감지
+- 영상을 저장 후 사용자에게 전송
+- 이후 증거로 활용 가능
 
 #### :zap: 순서 및 흐름
-- 초음파 센서로 (초인종으로부터) 일정 거리 안에 접근한 외부인 감지
-- 이후 카메라 촬영을 통해 사람이 존재하는지 확인
-  - openCV의 HaarCascade 방식을 이용해 full body / upper body / eye 인식 
-- 일정 시간 이상 외부인이 인식될 경우 video.avi 파일에 비디오 녹화 시작
-- video.avi 파일을 video.mp4 파일로 변환
-- 사용자의 카카오 채널에 ‘움직임 감지’ + 저장된 영상 전송 
+- 처음 코드를 작동시키면 맞은 편 벽과 문 사이의 거리를 측정 (기준값 지정)
+- 초음파 센서를 통해 기준치보다(벽 사이 거리보다) -25cm 이내로 접근 시 count 증가 (변수 a)
+- 변수값이 지정된 값 이상으로 증가 시 카메라 활성화
+- openCV의 HaarCascade 방식을 이용해 full body / upper body / eyes 인식 
+  - 인식이 안 될 경우, nodetected 변수 증가
+    - nodetected가 1000 이상이 될 경우, 변수 a = 0 으로 초기화/ 다시 거리 측정
+  - 인식에 성공 할 경우, detected 변수 증가
+    - detected가 5이상이 될 경우, 영상 녹화 시작 (프레임 저장)
+    - detected가 50이 넘어가면 인식 자동 종료, 영상 녹화 종료 및 저장
+    - video.avi 파일을 video.mp4 파일로 변환
+    - 사용자의 카카오 채널에 ‘움직임 감지’ + 저장된 영상 전송 
 
 _____________
 ## :star: 적용 기술
  
-#### :zap: 센서 
-<img src="https://user-images.githubusercontent.com/86276347/134758452-d990360f-46c4-4063-9329-5beaf7e00edd.jpg" width="250px" height="180px" title="33" alt="33"></img> <br/>
+#### :zap: 센서
+<img src="https://user-images.githubusercontent.com/86276347/134758452-d990360f-46c4-4063-9329-5beaf7e00edd.jpg" width="435px" height="290px" title="33" alt="33"></img> <br/>
 - 초음파 : 거리 측정을 통해 일정 거리 이내의 외부인 접근 확인
 - LED : 카메라를 통한 이미지 촬영 과정에서 조명 역할 /정상 동작 확인용
 - 스위치 : 초인종 입력 버튼
@@ -83,16 +89,18 @@ _____________
   * .xml 파일 내의 데이터와 greyscale 영상을 비교 분석하여 신체 인식
 - 해당 신체 부위가 인식되면 네모박스로 표시
  
-#### :zap: openCV – 이미지 삽입 - 수정
-<img src="https://user-images.githubusercontent.com/86276347/134758452-d990360f-46c4-4063-9329-5beaf7e00edd.jpg" width="250px" height="180px" title="33" alt="33"></img> <br/>
+#### :zap: openCV – 이미지 삽입 
+<img src="https://user-images.githubusercontent.com/86276347/134758418-2564c30a-06b7-4360-ad10-d173fbd9b685.JPG" width="250px" height="270px" title="33" alt="33"></img> 
+<img src="https://user-images.githubusercontent.com/86276347/134760428-26871ac4-1cd6-4c75-b641-7ccae557857d.JPG" width="250px" height="270px" title="33" alt="33"></img> <br/>
 - 주어진 이미지의 갯수가 한정되어 있을 경우 적용 (ex. 공공데이터를 통해 제공받은 성범죄자의 정면 이미지 & 지인의 정면 이미지)
 - 코로나 19에 맞추어 색상별 마스크, 모양별 안경 이미지 삽입
 - openCV의 정면 얼굴 인식(frontal face.xml)을 통해 얼굴의 랜드마크 추적
 - 얼굴의 x, y ,w, h 값을 찾아내어 삽입 이미지가 들어갈 위치 조정
 - 이후 추가로 정교한 위치 수정
 
-#### :zap: openCV – 배열을 통한 밝기 변환 - 수정
-<img src="https://user-images.githubusercontent.com/86276347/134758452-d990360f-46c4-4063-9329-5beaf7e00edd.jpg" width="250px" height="180px" title="33" alt="33"></img> <br/>
+#### :zap: openCV – 배열을 통한 밝기 변환
+<img src="https://user-images.githubusercontent.com/86276347/134760364-789d7ba7-71ed-48e2-baec-b05373f6f895.JPG" width="250px" height="270px" title="33" alt="33"></img>
+<img src="https://user-images.githubusercontent.com/86276347/134760366-4d41ffc0-2cba-4f61-a518-6d2eefe8a8f3.JPG" width="250px" height="270px" title="33" alt="33"></img> <br/>
 - 주어진 이미지의 갯수가 한정되어 있을 경우 적용
 - 이미지를 RGB 세 가지 색상에 대한 배열로 나타내어 값을 변화
 - 기본 이미지를 기준으로 값을 더하여 밝게 변환
@@ -117,8 +125,8 @@ _____________
 
 _____________
 ## :star: 적용 예시 - 수정 
-
-
+<img src="https://user-images.githubusercontent.com/86276347/134760283-e5253996-cc55-4af7-8368-450c7b625410.JPG" width="710px" height="290px" title="33" alt="33"></img> <br/>
+<img src="https://user-images.githubusercontent.com/86276347/134760284-8de67a1c-b1c5-410c-89e3-a911178a9b5b.JPG" width="710px" height="290px" title="33" alt="33"></img> <br/>
 
 ______________
 ## :star: 특장점
@@ -153,10 +161,10 @@ __________
 - openCV, 크롬 드라이버 설치
 - https://github.com/opencv/opencv/tree/master/data/haarcascades
 에 접속하여 필요한 ```.xml``` 파일 다운 (full & upper body, eyes)
-- *face_detection* 디렉토리 생성 후 해당 파일에 *main code*, ```.xml```파일 저장
+- 사용자의 라즈베리파이에 ```face_detection``` 디렉토리 생성 후 해당 파일에 ```main``` code, ```.xml```파일 저장
 - https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
 에 접속하여 개인 카카오 채널 생성
-- *main code*의 ```kakao1, 2()```에서 개인 아이디, 비밀번호, 채팅방 주소 수정
+- ```main``` code의 ```kakao1, 2()```에서 개인 아이디, 비밀번호, 채팅방 주소 수정
 ```python
  def kakao1, 2():
     
@@ -170,10 +178,10 @@ __________
     options = webdriver.ChromeOptions()
     
 ```
-- 마스크 및 안경 이미지를 깃허브의 *face_detection*에서 다운받아 *main code*에 저장
-- *dataset_v1, 2* 파일을 통해 학습시키고 싶은 인물 이미지 데이터 수집
+- 마스크 및 안경 이미지를 깃허브의 ```face_detection```에서 다운받아 ```main``` code에 저장
+- ```dataset_v1, 2``` 파일을 통해 학습시키고 싶은 인물 이미지 데이터 수집
 > 직접 카메라 앞에서 촬영이 가능할 경우, v1 사용 (다양한 환경, 조명, 각도에서 촬영하는 것이 유리) <br/>
 > 주어진 데이터가 한정적(사진 1장) 일 경우, v2 사용
-- *trainer* 파일을 작동시켜 인물 별 특징 추출 및 학습
-- 영상 전송 시 .mp4파일로 변환하기 위한 *subprocess* 라이브러리 설치
-- *main code*내 default되어 있는 경로들을 자신의 파일에 맞는 경로로 수정  
+- ```trainer``` 파일을 작동시켜 인물 별 특징 추출 및 학습
+- 영상 전송 시 .mp4파일로 변환하기 위한 ```subprocess``` 라이브러리 설치
+- ```main``` code내 default되어 있는 경로들을 자신의 파일에 맞는 경로로 수정  
