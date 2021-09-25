@@ -65,7 +65,7 @@ def kakao1():
     pw = '' 
 
     KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
-    ChatRoom = 'https://center-pf.kakao.com/_xfxcRGs/chats/4814011526591515'
+    ChatRoom = '~'
     options = webdriver.ChromeOptions()
 
     # Chrome driver load
@@ -146,7 +146,7 @@ def kakao1():
     pw = '' 
 
     KaKaoURL = 'https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/'
-    ChatRoom = 'https://center-pf.kakao.com/_xfxcRGs/chats/4814011526591515'
+    ChatRoom = '~'
     options = webdriver.ChromeOptions()
 
     # Chrome driver load
@@ -171,7 +171,7 @@ def kakao1():
     # write message
     driver.find_element_by_id('chatWrite').send_keys('움직임이 감지되었습니다.') 
     driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click() 
-    driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Desktop/video.mp4')
+    driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/video.mp4')
       
     time.sleep(2) 
     driver.quit()
