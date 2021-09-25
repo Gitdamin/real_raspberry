@@ -12,7 +12,7 @@ ___________
 ### 기능 2 : 스토킹 대처 및 방지 - 수정
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/130436870-b67a5ade-9307-4578-8fae-cf75d17a2d56.png" width="710px" height="250px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/134761654-72a6d6a2-fb18-40f1-9d10-5aa27561139f.png" width="698px" height="95px" title="33" alt="33"></img><br/>
 _____________
 ## :star: 배경
 
@@ -26,6 +26,7 @@ ____________________
 
 ### 기능 1 : 얼굴인식 및 분류
 
+#### :zap: 기능
 - 라즈베리파이를 활용하여 사람의 눈을 인식하는 초인종 개발
 - 초인종을 누르는 즉시 외부인을 인식하여 이미지 저장
 - 모니터(인터폰)에 현재 문 앞 상황과 저장된 이미지 동시에 띄우기
@@ -53,6 +54,7 @@ ____________________
 ___________________
 ### 기능 2 : 스토킹 대처 및 방지
 
+#### :zap: 기능
 - 라즈베리파이를 활용하여 스토킹 및 주거침입 방지 초인종 개발
 - 외부인의 접근이 일정 시간 이상 지속될 경우 영상 촬영 및 저장
 - 초음파센서와 openCV 기능을 결합하여 수상한 움직임 감지
@@ -124,10 +126,18 @@ _____________
 - 사용자 채팅방을 로드하여 알림 메시지 및 필요한 정보 전달 
 
 _____________
-## :star: 실제 구현
+## :star: 구현 모습
+
+#### :zap: 실제 초인종 모습
+<img src="https://user-images.githubusercontent.com/86276347/134758364-c7dbcc07-21a7-4576-804f-3e4418c18718.jpg" width="250px" height="330px" title="33" alt="33"></img><br/>
+
+#### :zap: 카카오채널을 통한 알림 전송
 <img src="https://user-images.githubusercontent.com/86276347/134760283-e5253996-cc55-4af7-8368-450c7b625410.JPG" width="740px" height="300px" title="33" alt="33"></img> <br/>
 <img src="https://user-images.githubusercontent.com/86276347/134760284-8de67a1c-b1c5-410c-89e3-a911178a9b5b.JPG" width="740px" height="300px" title="33" alt="33"></img> <br/>
 
+#### :zap: 초인종 도면
+<img src="https://user-images.githubusercontent.com/86276347/134761639-70426d91-3251-470f-b761-04875b45a391.JPG" width="740px" height="280px" title="33" alt="33"></img> <br/>
+<img src="https://user-images.githubusercontent.com/86276347/134761642-da793b8d-05a3-477b-8cbf-db309abb8048.JPG" width="750px" height="240px" title="33" alt="33"></img> <br/>
 
 ______________
 ## :star: 특장점
