@@ -12,7 +12,7 @@ ___________
 ### 기능 2 : 스토킹 대처 및 방지 - 수정
 <br/>
 
-<img src="https://user-images.githubusercontent.com/86276347/134761654-72a6d6a2-fb18-40f1-9d10-5aa27561139f.png" width="698px" height="95px" title="33" alt="33"></img><br/>
+<img src="https://user-images.githubusercontent.com/86276347/134761654-72a6d6a2-fb18-40f1-9d10-5aa27561139f.png" width="698px" height="90px" title="33" alt="33"></img><br/>
 _____________
 ## :star: 배경
 
