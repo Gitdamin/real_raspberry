@@ -89,17 +89,18 @@ _____________
 - 해당 신체 부위가 인식되면 네모박스로 표시
  
 #### :zap: openCV – 이미지 삽입 
-<img src="https://user-images.githubusercontent.com/86276347/134758418-2564c30a-06b7-4360-ad10-d173fbd9b685.JPG" width="250px" height="270px" title="33" alt="33"></img> 
-<img src="https://user-images.githubusercontent.com/86276347/134760428-26871ac4-1cd6-4c75-b641-7ccae557857d.JPG" width="250px" height="270px" title="33" alt="33"></img> <br/>
-- 주어진 이미지의 갯수가 한정되어 있을 경우 적용 (ex. 공공데이터를 통해 제공받은 성범죄자의 정면 이미지 & 지인의 정면 이미지)
+<img src="https://user-images.githubusercontent.com/86276347/134758418-2564c30a-06b7-4360-ad10-d173fbd9b685.JPG" width="250px" height="260px" title="33" alt="33"></img> 
+<img src="https://user-images.githubusercontent.com/86276347/134760428-26871ac4-1cd6-4c75-b641-7ccae557857d.JPG" width="250px" height="260px" title="33" alt="33"></img> <br/>
+- 주어진 이미지의 갯수가 한정되어 있을 경우 적용 
+> ex. 공공데이터를 통해 제공받은 성범죄자의 정면 이미지 & 지인의 정면 이미지
 - 코로나 19에 맞추어 색상별 마스크, 모양별 안경 이미지 삽입
 - openCV의 정면 얼굴 인식(frontal face.xml)을 통해 얼굴의 랜드마크 추적
 - 얼굴의 x, y ,w, h 값을 찾아내어 삽입 이미지가 들어갈 위치 조정
 - 이후 추가로 정교한 위치 수정
 
 #### :zap: openCV – 배열을 통한 밝기 변환
-<img src="https://user-images.githubusercontent.com/86276347/134760364-789d7ba7-71ed-48e2-baec-b05373f6f895.JPG" width="250px" height="270px" title="33" alt="33"></img>
-<img src="https://user-images.githubusercontent.com/86276347/134760366-4d41ffc0-2cba-4f61-a518-6d2eefe8a8f3.JPG" width="250px" height="270px" title="33" alt="33"></img> <br/>
+<img src="https://user-images.githubusercontent.com/86276347/134760364-789d7ba7-71ed-48e2-baec-b05373f6f895.JPG" width="250px" height="260px" title="33" alt="33"></img>
+<img src="https://user-images.githubusercontent.com/86276347/134760366-4d41ffc0-2cba-4f61-a518-6d2eefe8a8f3.JPG" width="250px" height="260px" title="33" alt="33"></img> <br/>
 - 주어진 이미지의 갯수가 한정되어 있을 경우 적용
 - 이미지를 RGB 세 가지 색상에 대한 배열로 나타내어 값을 변화
 - 기본 이미지를 기준으로 값을 더하여 밝게 변환
@@ -123,9 +124,10 @@ _____________
 - 사용자 채팅방을 로드하여 알림 메시지 및 필요한 정보 전달 
 
 _____________
-## :star: 적용 예시 - 수정 
-<img src="https://user-images.githubusercontent.com/86276347/134760283-e5253996-cc55-4af7-8368-450c7b625410.JPG" width="710px" height="290px" title="33" alt="33"></img> <br/>
-<img src="https://user-images.githubusercontent.com/86276347/134760284-8de67a1c-b1c5-410c-89e3-a911178a9b5b.JPG" width="710px" height="290px" title="33" alt="33"></img> <br/>
+## :star: 실제 구현
+<img src="https://user-images.githubusercontent.com/86276347/134760283-e5253996-cc55-4af7-8368-450c7b625410.JPG" width="740px" height="300px" title="33" alt="33"></img> <br/>
+<img src="https://user-images.githubusercontent.com/86276347/134760284-8de67a1c-b1c5-410c-89e3-a911178a9b5b.JPG" width="740px" height="300px" title="33" alt="33"></img> <br/>
+
 
 ______________
 ## :star: 특장점
@@ -155,7 +157,7 @@ _______________
 - 외출 시에도 알림을 통해 외부인 방문 및 접근 빠르게 인지
 - 스토킹, 주거 침입, 성범죄 등에 대한 뻐른 대처 및 증거 수집 가능
 __________
-## :star: 사용 방법 - 수정
+## :star: 사용 방법 
 
 - openCV, 크롬 드라이버 설치
 - https://github.com/opencv/opencv/tree/master/data/haarcascades
