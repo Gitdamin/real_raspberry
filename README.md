@@ -9,7 +9,7 @@ ___________
 <img src="https://user-images.githubusercontent.com/86276347/130423489-becd515b-0f2e-42ff-b7de-ebae4c99256c.png" width="640px" height="380px" title="33" alt="33"></img><br/>
 <br/>
 
-### 기능 2 : 스토킹 대처 및 방지 - 수정
+### 기능 2 : 스토킹 대처 및 방지
 <br/>
 
 <img src="https://user-images.githubusercontent.com/86276347/134761654-72a6d6a2-fb18-40f1-9d10-5aa27561139f.png" width="698px" height="90px" title="33" alt="33"></img><br/>
@@ -66,7 +66,7 @@ ___________________
 - 변수값이 지정된 값 이상으로 증가 시 카메라 활성화
 - openCV의 HaarCascade 방식을 이용해 full body / upper body / eyes 인식 
   - 인식이 안 될 경우, nodetected 변수 증가
-    - nodetected가 1000 이상이 될 경우, 변수 a = 0 으로 초기화/ 다시 거리 측정
+    - nodetected가 1000 이상이 될 경우, 변수 a = 0 으로 초기화 / 다시 초음파 센서 단계로
   - 인식에 성공 할 경우, detected 변수 증가
     - detected가 5이상이 될 경우, 영상 녹화 시작 (프레임 저장)
     - detected가 50이 넘어가면 인식 자동 종료, 영상 녹화 종료 및 저장
@@ -79,7 +79,7 @@ _____________
 #### :zap: 센서
 <img src="https://user-images.githubusercontent.com/86276347/134758452-d990360f-46c4-4063-9329-5beaf7e00edd.jpg" width="435px" height="290px" title="33" alt="33"></img> <br/>
 - 초음파 : 거리 측정을 통해 일정 거리 이내의 외부인 접근 확인
-- LED : 카메라를 통한 이미지 촬영 과정에서 조명 역할 /정상 동작 확인용
+- LED : 카메라를 통한 이미지 촬영 과정에서 조명 역할 / 정상 동작 확인용
 - 스위치 : 초인종 입력 버튼
 
 #### :zap: openCV – 사람의 눈, 몸, 상체 인식 
@@ -195,4 +195,4 @@ __________
 > 주어진 데이터가 한정적(사진 1장) 일 경우, v2 사용
 - ```trainer``` 파일을 작동시켜 인물 별 특징 추출 및 학습
 - 영상 전송 시 .mp4파일로 변환하기 위한 ```subprocess``` 라이브러리 설치
-- ```main``` code내 default되어 있는 경로들을 자신의 파일에 맞는 경로로 수정  
+- ```main``` code내 default 되어 있는 경로들을 자신의 파일에 맞는 경로로 수정  
