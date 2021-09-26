@@ -100,7 +100,7 @@ _____________
 - 얼굴의 x, y ,w, h 값을 찾아내어 삽입 이미지가 들어갈 위치 조정
 - 이후 추가로 정교한 위치 수정
 
-#### :zap: openCV – 배열을 통한 밝기 변환
+#### :zap: 배열을 통한 밝기 변환
 <img src="https://user-images.githubusercontent.com/86276347/134760364-789d7ba7-71ed-48e2-baec-b05373f6f895.JPG" width="250px" height="260px" title="33" alt="33"></img>
 <img src="https://user-images.githubusercontent.com/86276347/134760366-4d41ffc0-2cba-4f61-a518-6d2eefe8a8f3.JPG" width="250px" height="260px" title="33" alt="33"></img> <br/>
 - 주어진 이미지의 갯수가 한정되어 있을 경우 적용
