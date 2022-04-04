@@ -193,14 +193,15 @@ cd smartdoor_raspberry
 ```
 5. ```subprocess``` 라이브러리 설치 --영상 전송 용
 <br/>
+
 ## :star: Start
 
 1. data 수집
-- 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset```의 face_dataset_v1 사용 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
-- 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset```의 face_dataset_v2 사용
+> 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset```의 face_dataset_v1 사용 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
+> 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset```의 face_dataset_v2 사용
 2. train
-- ```train``` 디렉토리 내 ```face_training``` 코드 실행
+> ```train``` 디렉토리 내 ```face_training``` 코드 실행
 3. test
-- ```tools``` 디렉토리 내 ```main``` 코드 실행
+> ```tools``` 디렉토리 내 ```main``` 코드 실행
 
 _______________
