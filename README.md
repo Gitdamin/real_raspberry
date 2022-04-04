@@ -192,7 +192,8 @@ cd smartdoor_raspberry
     options = webdriver.ChromeOptions()
     
 ```
-5. ```subprocess``` 라이브러리 설치 --영상 전송 용
+5. ```subprocess```, ```selenium``` 라이브러리 설치 --영상 전송 용
+6. ```detection``` 디렉토리의 ```face_main```내, names=[] 수정
 <br/>
 
 ## :star: Start
