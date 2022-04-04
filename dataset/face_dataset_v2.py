@@ -4,11 +4,14 @@
 
 import cv2
 import numpy as np
+import glob
+
 
 # face 분류기 로드
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "./src/haarcascade_frontalface_default.xml")
 # call face mask
-face_mask = cv2.imread('/home/pi/Documents/face_detection/~.jpg')
+masks = glob.glob('./samples/mask/*.jpg')
+face_mask = cv2.imread(masks)
 #cv2.imshow('test',face_mask)
 h_mask, w_mask = face_mask.shape[:2]
 
@@ -21,7 +24,8 @@ char = 'mask'  # personal characteristic
 while True:
     
     # call outsider face (model) image 
-    frame = cv2.imread('/home/pi/Documents/face_detection/~.jpg', 1)
+    face = glob.glob('./samples/face/*.jpg')
+    frame = cv2.imread(face)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     face_rects = face_cascade.detectMultiScale(gray, 1.2, 3)
@@ -37,18 +41,18 @@ while True:
             h = int(0.3* h) 
 
         # glasses version2
-        ''' x = int(x-w*0.1)
-            y = int(y + h*0.03)
-            w = int(1.2* w)
-            h = int(0.8* h) '''
+            # x = int(x-w*0.1)
+            # y = int(y + h*0.03)
+            # w = int(1.2* w)
+            # h = int(0.8* h) 
         
         # wearing mask _ white
-        ''' y = int(y + h*0.28)
-            w = int(1.1 * w)
-            h = int(0.9* h) '''
+            # y = int(y + h*0.28)
+            # w = int(1.1 * w)
+            # h = int(0.9* h) 
             
         # wearing mask _ blask
-        ''' y = int(y + h*0.2) '''
+            # y = int(y + h*0.2) 
 
           
             frame_roi = frame[y:y + h, x:x + w]

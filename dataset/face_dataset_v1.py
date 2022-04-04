@@ -12,7 +12,7 @@ cam.set(3, 640) # set video width
 cam.set(4, 480) # set video height
 
 # using haar_eyedetect
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './src/haarcascade_eye.xml')
 
 # For each person, enter one numeric face id
 face_id = input('\n write id and push the enter button => ')

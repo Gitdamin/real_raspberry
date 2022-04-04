@@ -22,6 +22,8 @@ blue = GPIO.PWM(22, hz)      # create object blue for PWM on port 22
 import numpy as np 
 import cv2
 
+names=[] # add person's name
+
 # change to a larger size
 def set_size(img, scale):
     return cv2.resize(img, dsize=(int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
@@ -38,7 +40,7 @@ def kakao():
     options = webdriver.ChromeOptions()
 
     # Chrome driver load
-    driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', options=options)
+    driver = webdriver.Chrome('./src/chromedriver', options=options)
     driver.implicitly_wait(3)
     
     # change user-agent
@@ -50,7 +52,7 @@ def kakao():
     driver.find_element_by_id('id_email_2').send_keys(id)  # write id
     driver.find_element_by_id('id_password_3').send_keys(pw)  # write password
     driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()  # click the input button
-    sleep(1)
+    time.sleep(1)
         
     # personal chatroom load
     driver.get(ChatRoom)
@@ -60,15 +62,15 @@ def kakao():
     driver.find_element_by_id('chatWrite').send_keys('초인종을 눌렀습니다.')  
     # When eye recognition and image storage are successful
     if count > 3 :   
-          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_03.jpg') 
+          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('./tools/testset/store_3.jpg') 
           time.sleep(8)
         
           # Trained code load
           recognizer = cv2.face.LBPHFaceRecognizer_create()
-          recognizer.read('/home/pi/Documents/face_detection/trainer/trainer.yml')
+          recognizer.read('./tools/trainer/trainer.yml')
         
           frame = img_cap
-          #cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg')
+          #cv2.imread('./testset/store_3.jpg')
           gray_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
           # Get values
@@ -92,7 +94,7 @@ def kakao():
     # When eye recognition failed
     # send an alternative image that is saved immediately after press the doorbell
     else :   
-          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('/home/pi/Documents/face_detection/test_capture_who.jpg')
+          driver.find_element_by_xpath("//input[@class='custom uploadInput']").send_keys('./tools/testset/capture.jpg')
           driver.find_element_by_id('chatWrite').send_keys('외부인의 신원을 알 수 없습니다.') 
           driver.find_element_by_xpath('//*[@id="kakaoWrap"]/div[1]/div[2]/div/div[2]/div[2]/form/fieldset/button').click()
             
@@ -120,7 +122,7 @@ try:
           time_2 = time.time() + 2
         
           # Use haarcascade_frontalface_default.xml file as Classifier
-          eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+          eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './src/haarcascade_eye.xml')
           cap = cv2.VideoCapture(-1)
           cap.set(3,640) # set Width
           cap.set(4,480) # set Height
@@ -130,7 +132,7 @@ try:
              now = time.time()
              # capture video and save images immediately after pressing the doorbell
              if now < time_2 :  
-                cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_who.jpg", gray)  
+                cv2.imwrite("./tools/testset/capture.jpg", gray)  
                 
              eyes = eye_cascade.detectMultiScale(gray, scaleFactor= 1.5, minNeighbors=10, minSize=(15,15))
              if len(eyes) :  # eye detection
@@ -138,7 +140,7 @@ try:
                      cv2.rectangle(img, (x, y), (x + w, y + h), (255,255,255), 2, cv2.LINE_4)   # show white mini box on img
                      count += 1
                      if count<6 :  # capture and save 5 images
-                         cv2.imwrite("/home/pi/Documents/face_detection/" + "test_capture_0" + str(count) + ".jpg", gray) 
+                         cv2.imwrite("./tools/testset/" + "store_" + str(count) + ".jpg", gray) 
                         
              # show size-up img on monitor
              big_size = set_size(img, 2.5)    
@@ -147,13 +149,13 @@ try:
              # When eye recognization failed
              # send an alternative image that is saved immediately after press the doorbell
              if count < 3 : 
-                img_who = cv2.imread('/home/pi/Documents/face_detection/test_capture_who.jpg', 1)
+                img_who = cv2.imread('./tools/testset/capture.jpg', 1)
                 cv2.imshow('Captured Image', img_who)
                 
              # When eye recognition is successful
              else :  
                 cv2.destroyWindow("Captured Image")  # removing the previous window
-                img_cap = cv2.imread('/home/pi/Documents/face_detection/test_capture_03.jpg', 1)
+                img_cap = cv2.imread('./tools/testset/store_3.jpg', 1)
                 cv2.imshow('Recognized Image', img_cap) # show accurate image
   
                 
