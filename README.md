@@ -179,7 +179,7 @@ cd smartdoor_raspberry
 3. ```tools``` 디렉토리에 ```testset``` 폴더 생성
 4. https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
 에 접속하여 개인 카카오 채널 생성
-5. ```tools/main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
+5. ```tools/main```, ```detection/face(motion)_main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
 ```python
  def kakao1, 2():
     
@@ -203,8 +203,8 @@ cd smartdoor_raspberry
 > 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset/face_dataset_v1``` 실행 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
 > 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset/face_dataset_v2``` 실행
 2. train
-> ```train/face_training``` 코드 실행
+> ```train/face_training``` code 실행
 3. test
-> ```tools/main``` 코드 실행
+> ```tools/main``` code 실행
 
 _______________
