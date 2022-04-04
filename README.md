@@ -179,7 +179,7 @@ cd smartdoor_raspberry
 3. ```tools``` 디렉토리에 ```testset``` 폴더 생성
 4. https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
 에 접속하여 개인 카카오 채널 생성
-5. ```tools```의 ```main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
+5. ```tools/main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
 ```python
  def kakao1, 2():
     
@@ -194,17 +194,17 @@ cd smartdoor_raspberry
     
 ```
 6. ```subprocess```, ```selenium``` 라이브러리 설치 --영상 전송 용
-7. ```detection``` 디렉토리의 ```face_main```내, names=[ ] 수정
+7. ```detection/face_main```, ```tools/main``` 내, names=[ ] 수정
 <br/>
 
 ## :star: Start
 
 1. data 수집
-> 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset```의 face_dataset_v1 사용 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
-> 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset```의 face_dataset_v2 사용
+> 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset/face_dataset_v1``` 실행 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
+> 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset/face_dataset_v2``` 실행
 2. train
-> ```train``` 디렉토리 내 ```face_training``` 코드 실행
+> ```train/face_training``` 코드 실행
 3. test
-> ```tools``` 디렉토리 내 ```main``` 코드 실행
+> ```tools/main``` 코드 실행
 
 _______________
