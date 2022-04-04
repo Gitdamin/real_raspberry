@@ -168,6 +168,7 @@ _______________
 - 스토킹, 주거 침입, 성범죄 등에 대한 뻐른 대처 및 증거 수집 가능
 __________
 ## :star: Setting 
+```we use raspberry pi 3B+, pi camera, python 3.7.3, Ultrasonic sensor, mini breadboard, switch, resisters```
 
 1. download
 ```
