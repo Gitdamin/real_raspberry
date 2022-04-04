@@ -167,15 +167,17 @@ _______________
 - 외출 시에도 알림을 통해 외부인 방문 및 접근 빠르게 인지
 - 스토킹, 주거 침입, 성범죄 등에 대한 뻐른 대처 및 증거 수집 가능
 __________
-## :star: 사용 방법 
+## :star: Setting 
 
-- openCV, 크롬 드라이버 설치
-- https://github.com/opencv/opencv/tree/master/data/haarcascades
-에 접속하여 필요한 ```.xml``` 파일 다운 (full & upper body, eyes)
-- 사용자의 라즈베리파이에 ```face_detection``` 디렉토리 생성 후 해당 파일에 ```main``` code, ```.xml```파일 저장
-- https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
+1. download
+```
+git clone https://github.com/Gitdamin/smartdoor_raspberry.git
+cd smartdoor_raspberry
+```
+2. ```dataset```디렉토리에 ```dataset``` 폴더 추가 생성 --선택사항
+3. https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
 에 접속하여 개인 카카오 채널 생성
-- ```main``` code의 ```kakao1, 2()```에서 개인 아이디, 비밀번호, 채팅방 주소 수정
+4. ```tools```의 ```main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
 ```python
  def kakao1, 2():
     
@@ -189,10 +191,16 @@ __________
     options = webdriver.ChromeOptions()
     
 ```
-- 마스크 및 안경 이미지를 깃허브의 ```face_detection```파일에서 다운받아 ```main``` code가 저장된 디렉토리에 저장
-- ```dataset_v1, 2``` 파일을 통해 학습시키고 싶은 인물 이미지 데이터 수집
-> 직접 카메라 앞에서 촬영이 가능할 경우, v1 사용 (다양한 환경, 조명, 각도에서 촬영하는 것이 유리) <br/>
-> 주어진 데이터가 한정적(사진 1장) 일 경우, v2 사용
-- ```trainer``` 파일을 작동시켜 인물 별 특징 추출 및 학습
-- 영상 전송 시 .mp4파일로 변환하기 위한 ```subprocess``` 라이브러리 설치
-- ```main``` code내 default 되어 있는 경로들을 자신의 파일에 맞는 경로로 수정  
+5. ```subprocess``` 라이브러리 설치 --영상 전송 용
+<br/>
+## :star: Start
+
+1. data 수집
+- 직접 카메라 앞에서 촬영이 가능할 경우, ```dataset```의 face_dataset_v1 사용 --다양한 환경, 조명, 각도에서 촬영하는 것이 유리 <br/>
+- 현재 주어진 데이터가 한정적(사진 1장)일 경우, ```dataset```의 face_dataset_v2 사용
+2. train
+- ```train``` 디렉토리 내 ```face_training``` 코드 실행
+3. test
+- ```tools``` 디렉토리 내 ```main``` 코드 실행
+
+_______________
