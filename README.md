@@ -36,17 +36,17 @@ ____________________
 #### :zap: 순서 및 흐름
 <img src="https://user-images.githubusercontent.com/86276347/129696940-8cb7bb53-4e5c-493e-a9c2-b6673673f73d.jpg" width="500px" height="220px" title="33" alt="33"></img><br/>
 - 외부인이 초인종을 누르면 카메라 + openCV 작동
-- 카메라가 작동된 직후 임의로 영상 캡쳐 및 저장 (who.jpg)
-- HaarCascade 방식을 통해 사람의 눈 인식 후 이미지 캡쳐 및 저장 (recognize.jpg)
+- 카메라가 작동된 직후 임의로 영상 캡쳐 및 저장 (capture.jpg)
+- HaarCascade 방식을 통해 사람의 눈 인식 후 이미지 캡쳐 및 저장 (store_3.jpg)
 - 인터폰에 현재 문 앞 상황 + 저장해 놓은 이미지 송출
-  - 눈이 제대로 인식되지 않았을 경우, who.jpg 를 송출  
+  - 눈이 제대로 인식되지 않았을 경우, capture.jpg 를 송출  
   > 'Captured Image'
-  - 눈이 제대로 인식되었을 경우, recognize.jpg 를 송출 
+  - 눈이 제대로 인식되었을 경우, store_3.jpg 를 송출 
   > 'Recognized Image'
 - 일정 시간(10초) 이후 카메라 기능 종료 + 인터넷 로드 시작
 - 사용자의 카카오 채널에 ‘초인종 누름’ 및 외부인 이미지 전송
-  - 눈이 제대로 인식되지 않았을 경우, who.jpg 를 전송
-  - 눈이 인식되었을 경우, recognize.jpg 를 전송 + 이미지 분류 시작
+  - 눈이 제대로 인식되지 않았을 경우, capture.jpg 를 전송
+  - 눈이 인식되었을 경우, store_3.jpg 를 전송 + 이미지 분류 시작
      - 새롭게 입력된 외부인 이미지와 이전 학습된 이미지를 비교 분석
      - trainer파일로부터 id, confidence 추출 및 사용자에게 전송
      - 이전에 미리 학습된 인물이 아닐 경우, 신원(id) = ‘unknown’
