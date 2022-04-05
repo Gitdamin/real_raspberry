@@ -168,7 +168,7 @@ _______________
 - 스토킹, 주거 침입, 성범죄 등에 대한 뻐른 대처 및 증거 수집 가능
 __________
 ## :star: Setting 
-we use ```raspberry pi 3B+, pi camera, python 3.7.3, subprocess, selenium, Ultrasonic sensor, mini breadboard, switch, resisters```
+```raspberry pi 3B+, pi camera, python 3.7.3, subprocess, selenium, kakao```
 
 1. download
 ```
@@ -179,7 +179,8 @@ cd smartdoor_raspberry
 3. ```tools``` 디렉토리에 ```testset``` 폴더 생성
 4. https://accounts.kakao.com/login/kakaoforbusiness?continue=https://center-pf.kakao.com/
 에 접속하여 개인 카카오 채널 생성
-5. ```tools/main```, ```detection/face(motion)_main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
+5. 사용자 맞춤 설정<br/>
+```tools/main```, ```detection/face(motion)_main``` code에서 ```kakao1, 2()```부분을 "개인 아이디, 비밀번호, 채팅방 주소"로 수정
 ```python
  def kakao1, 2():
     
@@ -193,8 +194,7 @@ cd smartdoor_raspberry
     options = webdriver.ChromeOptions()
     
 ```
-6. ```subprocess```, ```selenium``` 라이브러리 설치 --영상 전송 용
-7. ```detection/face_main```, ```tools/main``` 내, names=[ ] 수정
+6. ```detection/face_main```, ```tools/main```의 names=[ ] 수정
 <br/>
 
 ## :star: Start
